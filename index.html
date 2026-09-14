@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="HR منظومة">
-<title>منظومة HR — V14.0 (سحابي)</title>
+<title>منظومة HR — V14.1 (سحابي)</title>
 <link rel="manifest" id="app-manifest">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js" defer></script>
@@ -243,7 +243,7 @@ textarea{resize:vertical}
     <div class="login-box">
         <div class="hr-logo" id="login-logo"></div>
         <h2>منظومة إدارة الموارد البشرية</h2>
-        <p class="sub">الإصدار V14.0 — سحابي</p>
+        <p class="sub">الإصدار V14.1 — سحابي</p>
         <div class="form-group" style="text-align:right;">
             <label>رمز الدخول</label>
             <input type="password" id="pass-input" onkeydown="if(event.key==='Enter') checkPassword()" placeholder="أدخل كلمة المرور">
@@ -767,11 +767,8 @@ textarea{resize:vertical}
 </div>
 
 <script>
-/* =========================================================
-   ☁️ إعدادات Supabase — معبّأة جاهزة
-========================================================= */
 const SUPABASE_URL = 'https://lcmhqvichzhjxzliupj.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_sFO5Juo4JbPg_mySO5dWVw_-vl5jF7m';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxjbWhxdmxjbGh6aGxqeHpsdXBqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkzNzQ0MTIsImV4cCI6MjEwNDk1MDQxMn0.sGNsMiJb55VQUqkp-LP3gQfrJDs1cIOuukpVaTE-7sI';
 const CLOUD_USER_ID = 'hr_mohammed_main';
 
 let supabaseClient = null;
