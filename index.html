@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="منظومة محمد">
-<title>منظومة محمد الشاملة V9.2</title>
+<title>منظومة محمد الشاملة V10.0</title>
 <link rel="manifest" id="app-manifest">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js" defer></script>
@@ -40,8 +40,8 @@
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 html, body { background-color: var(--bg); }
-body { color: var(--text); padding: 12px; padding-bottom: calc(84px + env(safe-area-inset-bottom)); max-width: 480px; margin: 0 auto; min-height: 100vh; }
-#login-screen { position: fixed; inset: 0; background-color: var(--bg); z-index: 999; display: flex; align-items: center; justify-content: center; padding: 20px; }
+body { color: var(--text); padding: 12px; padding-top: calc(12px + env(safe-area-inset-top)); padding-bottom: calc(84px + env(safe-area-inset-bottom)); max-width: 480px; margin: 0 auto; min-height: 100vh; }
+#login-screen { position: fixed; inset: 0; background-color: var(--bg); z-index: 999; display: flex; align-items: center; justify-content: center; padding: 20px; padding-top: calc(20px + env(safe-area-inset-top)); }
 .login-box { background-color: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--accent); border-radius: var(--radius-lg); padding: 28px 24px; width: 100%; max-width: 360px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.35); }
 .login-box .lock-emoji { font-size: 2rem; margin-bottom: 6px; }
 .login-box h2 { font-size: 1.15rem; margin-bottom: 4px; font-weight: 800; }
@@ -51,9 +51,9 @@ body { color: var(--text); padding: 12px; padding-bottom: calc(84px + env(safe-a
 @keyframes shakeAnim { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
 .top-bar { background-color: var(--surface); padding: 14px 16px; border-radius: var(--radius-lg); border: 1px solid var(--border); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
 .user-info { min-width: 0; flex: 1; }
-.user-info h2 { font-size: 1.02rem; font-weight: 800; }
-.user-info .date-line { font-size: 0.72rem; color: var(--text-muted); margin-top: 4px; display: block; }
-.controls-btn { display: flex; gap: 5px; flex-wrap: wrap; justify-content: flex-end; max-width: 190px; flex-shrink: 0; }
+.user-info h2 { font-size: 1rem; font-weight: 800; line-height: 1.3; }
+.user-info .date-line { font-size: 0.7rem; color: var(--text-muted); margin-top: 4px; display: block; }
+.controls-btn { display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; max-width: 175px; flex-shrink: 0; }
 .icon-btn { background: var(--surface-2); border: 1px solid var(--border); color: var(--text); width: 32px; height: 32px; border-radius: var(--radius-sm); cursor: pointer; font-size: 0.88rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .icon-btn:active { transform: scale(0.92); }
 .alert-strip-title { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 6px; padding: 0 2px; }
@@ -72,6 +72,7 @@ body { color: var(--text); padding: 12px; padding-bottom: calc(84px + env(safe-a
 .section-card { border-right: 3px solid var(--accent); }
 .section-card.soul-card { border-right-color: var(--soul); }
 .section-card.info-card { border-right-color: var(--info); }
+.section-card.danger-card { border-right-color: var(--danger); }
 .section-title { font-size: 0.88rem; font-weight: 800; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
 .section-total { font-size: 0.72rem; font-weight: 700; color: var(--positive); }
 .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
@@ -128,10 +129,10 @@ textarea { resize: vertical; }
 .empty-state { text-align: center; font-size: 0.76rem; color: var(--text-muted); padding: 16px 8px; border: 1px dashed var(--border); border-radius: var(--radius-md); margin-top: 10px; }
 .mini-toggle { display: flex; align-items: center; gap: 6px; font-size: 0.73rem; color: var(--text-muted); margin-bottom: 4px; cursor: pointer; }
 .mini-toggle input { width: auto; accent-color: var(--accent); }
-.privacy-blur { filter: blur(6px); }
+.privacy-blur .sensitive { filter: blur(6px); }
 .flash { animation: flashAnim 1.3s ease; }
 @keyframes flashAnim { 0%, 100% { box-shadow: none; } 25% { box-shadow: 0 0 0 2px var(--accent); } 60% { box-shadow: 0 0 0 2px var(--accent); } }
-.overlay-screen { position: fixed; inset: 0; z-index: 900; background: var(--bg); overflow-y: auto; padding: 14px; padding-bottom: calc(30px + env(safe-area-inset-bottom)); display: none; }
+.overlay-screen { position: fixed; inset: 0; z-index: 900; background: var(--bg); overflow-y: auto; padding: 14px; padding-top: calc(14px + env(safe-area-inset-top)); padding-bottom: calc(30px + env(safe-area-inset-bottom)); display: none; }
 .overlay-screen.open { display: block; }
 .overlay-inner { max-width: 480px; margin: 0 auto; }
 .overlay-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 8px; }
@@ -193,22 +194,13 @@ textarea { resize: vertical; }
 .toast-warn { border-color: var(--warn); }
 .toast-danger { border-color: var(--danger); }
 .worship-day { background: var(--surface-2); border: 1px solid var(--border); padding: 10px; border-radius: var(--radius-md); margin-bottom: 6px; }
-.worship-prayers { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin: 6px 0; }
-.worship-prayer { text-align: center; padding: 6px 2px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; font-size: 0.66rem; font-weight: 700; }
-.worship-prayer.on { background: var(--soul-soft); border-color: var(--soul); color: var(--soul); }
-.worship-extra { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
-.worship-extra label { flex: 1; min-width: 60px; font-size: 0.66rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 3px; }
-.worship-extra input { padding: 5px 8px; font-size: 0.72rem; }
-/* AI Chat */
 .ai-chat { max-height: 260px; overflow-y: auto; margin-bottom: 8px; padding: 10px; background: var(--surface-2); border-radius: var(--radius-md); display: flex; flex-direction: column; gap: 8px; }
 .ai-msg { padding: 8px 12px; border-radius: 12px; font-size: 0.78rem; line-height: 1.6; max-width: 88%; word-wrap: break-word; }
 .ai-user { background: var(--accent-soft); color: var(--text); align-self: flex-end; border: 1px solid var(--accent); }
 .ai-bot { background: var(--info-soft); color: var(--text); align-self: flex-start; border: 1px solid var(--info); }
-/* Questions template */
 .q-template { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
 .q-chip { font-size: 0.68rem; padding: 5px 10px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); cursor: pointer; color: var(--text-muted); user-select: none; }
 .q-chip.on { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); font-weight: 700; }
-/* Bar chart */
 .bar-row { margin-bottom: 8px; }
 .bar-head { display: flex; justify-content: space-between; font-size: 0.74rem; margin-bottom: 3px; }
 .bar-head .bar-amt { font-weight: 800; }
@@ -220,6 +212,12 @@ textarea { resize: vertical; }
 .nit-mg { background: var(--info-soft); color: var(--info); }
 .nit-lg { background: var(--warn-soft); color: var(--warn); }
 .nit-red { background: var(--danger-soft); color: var(--danger); }
+.file-chip { display: inline-flex; align-items: center; gap: 6px; background: var(--surface); border: 1px solid var(--border); padding: 5px 10px; border-radius: var(--radius-sm); font-size: 0.7rem; margin: 3px 3px 0 0; }
+.file-chip a { color: var(--info); text-decoration: none; font-weight: 700; }
+.file-chip .x { color: var(--danger); cursor: pointer; font-weight: 900; padding: 0 4px; }
+.file-chip img.thumb { width: 32px; height: 32px; object-fit: cover; border-radius: 6px; }
+.letter-preview { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px; font-size: 0.82rem; line-height: 1.8; white-space: pre-wrap; min-height: 80px; }
+.letter-preview img.bg { max-width: 100%; border-radius: var(--radius-sm); margin-bottom: 10px; }
 </style>
 </head>
 <body>
@@ -229,7 +227,7 @@ textarea { resize: vertical; }
     <div class="login-box">
         <div class="lock-emoji">🔐</div>
         <h2>تسجيل الدخول</h2>
-        <p class="sub">منظومة محمد الشاملة V9.2</p>
+        <p class="sub">منظومة محمد الشاملة V10.0</p>
         <div class="form-group" style="text-align:right;">
             <label>رمز الدخول</label>
             <input type="password" id="pass-input" onkeydown="if(event.key==='Enter') checkPassword()" placeholder="أدخل كلمة المرور">
@@ -297,10 +295,10 @@ textarea { resize: vertical; }
     <div class="section-title">📊 الموجز التنفيذي</div>
     <div class="stats-grid">
         <div class="stat-item"><span class="stat-label">📋 مهام مفتوحة</span><span class="stat-value" id="stat-tasks">0</span></div>
-        <div class="stat-item"><span class="stat-label">⚠️ تنبيهات حرجة</span><span class="stat-value" id="stat-docs" style="color:var(--danger);">0</span></div>
-        <div class="stat-item"><span class="stat-label">👥 العمالة</span><span class="stat-value" id="stat-workers">0</span></div>
-        <div class="stat-item"><span class="stat-label">🔄 اشتراكات/شهر</span><span class="stat-value"><span id="stat-subs">0</span> ر</span></div>
-        <div class="stat-item full-width"><span class="stat-label">📅 أقساط/شهر</span><span class="stat-value" id="stat-pay" style="color:var(--positive);">0 ر</span></div>
+        <div class="stat-item"><span class="stat-label">⚠️ تنبيهات حرجة</span><span class="stat-value sensitive" id="stat-docs" style="color:var(--danger);">0</span></div>
+        <div class="stat-item"><span class="stat-label">👥 العمالة</span><span class="stat-value sensitive" id="stat-workers">0</span></div>
+        <div class="stat-item"><span class="stat-label">🔄 اشتراكات/شهر</span><span class="stat-value sensitive"><span id="stat-subs">0</span> ر</span></div>
+        <div class="stat-item full-width"><span class="stat-label">📅 أقساط/شهر</span><span class="stat-value sensitive" id="stat-pay" style="color:var(--positive);">0 ر</span></div>
     </div>
     <div class="quick-row">
         <button class="quick-btn" onclick="quickAdd('nav-hr','tab-work','lic-name')">➕ ترخيص</button>
@@ -323,7 +321,7 @@ textarea { resize: vertical; }
         <div class="section-title">🤖 المساعد الذكي</div>
         <div class="ai-chat" id="ai-chat"></div>
         <div class="form-row">
-            <div class="form-group" style="flex:3;"><input id="ai-input" placeholder="اسألني... (كم عامل، مهامي، المصروفات)" onkeydown="if(event.key==='Enter') sendAI()"></div>
+            <div class="form-group" style="flex:3;"><input id="ai-input" placeholder="اسألني..." onkeydown="if(event.key==='Enter') sendAI()"></div>
             <div class="form-group" style="flex:1;min-width:70px;"><button class="btn btn-info btn-full" onclick="sendAI()">إرسال</button></div>
         </div>
         <div class="q-template" style="margin-top:8px;">
@@ -331,9 +329,8 @@ textarea { resize: vertical; }
             <span class="q-chip" onclick="quickAsk('مهامي')">✅ مهامي</span>
             <span class="q-chip" onclick="quickAsk('التنبيهات')">⚠️ تنبيهات</span>
             <span class="q-chip" onclick="quickAsk('المصروفات')">💰 مصروفات</span>
-            <span class="q-chip" onclick="quickAsk('الأرباح')">📈 أرباح</span>
             <span class="q-chip" onclick="quickAsk('نطاقي')">📊 نطاقات</span>
-            <span class="q-chip" onclick="quickAsk('عبادتي')">🌿 عبادتي</span>
+            <span class="q-chip" onclick="quickAsk('الجزاءات')">⚖️ جزاءات</span>
         </div>
     </div>
 
@@ -355,7 +352,6 @@ textarea { resize: vertical; }
             <span><i class="cal-dot dot-warn"></i> وثيقة عامل</span>
             <span><i class="cal-dot dot-danger"></i> قسط/شيك</span>
             <span><i class="cal-dot dot-ok"></i> مهمة</span>
-            <span><i class="cal-dot dot-soul"></i> روحاني</span>
             <span><i class="cal-dot dot-holiday"></i> إجازة رسمية</span>
         </div>
     </div>
@@ -416,17 +412,43 @@ textarea { resize: vertical; }
         </div>
         <div class="form-row">
             <div class="form-group"><label>رقم الجوال</label><input type="tel" id="work-phone" placeholder="05xxxxxxxx"></div>
-            <div class="form-group"><label>نوع الوثيقة</label><input type="text" id="work-doc" placeholder="إقامة، رخصة، تأمين..."></div>
+            <div class="form-group"><label>البريد الإلكتروني</label><input type="email" id="work-email" placeholder="name@example.com"></div>
         </div>
         <div class="form-row">
+            <div class="form-group"><label>نوع الوثيقة</label><input type="text" id="work-doc" placeholder="إقامة، رخصة، تأمين..."></div>
             <div class="form-group"><label>انتهاء الوثيقة</label><input type="date" id="work-date"></div>
-            <div class="form-group"><label>انتهاء العقد</label><input type="date" id="work-contract"></div>
         </div>
+        <div class="form-group"><label>انتهاء العقد</label><input type="date" id="work-contract"></div>
         <div class="btn-row">
             <button class="btn btn-accent" id="work-submit-btn" onclick="saveItem('workers')">إضافة للرادار</button>
             <button class="btn btn-ghost" id="work-cancel-btn" style="display:none" onclick="cancelEdit('workers')">إلغاء</button>
         </div>
         <div class="data-list" id="work-list"></div>
+    </div>
+
+    <div class="section-card info-card">
+        <div class="section-title">📎 ملفات الموظفين (إجازات/طلبات/شفتات/عقود)</div>
+        <div class="form-group"><label>الموظف</label><select id="file-emp"></select></div>
+        <div class="form-row">
+            <div class="form-group"><label>نوع الملف</label>
+                <select id="file-type">
+                    <option>طلب إجازة</option>
+                    <option>طلب استئذان</option>
+                    <option>شفت / جدول دوام</option>
+                    <option>عقد عمل</option>
+                    <option>مستند رسمي</option>
+                    <option>أخرى</option>
+                </select>
+            </div>
+            <div class="form-group"><label>وصف الملف</label><input type="text" id="file-desc" placeholder="مثال: إجازة سنوية 7 أيام"></div>
+        </div>
+        <div class="form-group"><label>اختر الملف (صورة أو PDF — حجم صغير)</label><input type="file" id="file-input" accept="image/*,application/pdf" onchange="handleFileSelect(event)"></div>
+        <div id="file-preview" style="margin-top:6px;"></div>
+        <div class="btn-row">
+            <button class="btn btn-info" id="file-submit-btn" onclick="saveItem('empFiles')">حفظ الملف</button>
+            <button class="btn btn-ghost" id="file-cancel-btn" style="display:none" onclick="cancelEdit('empFiles')">إلغاء</button>
+        </div>
+        <div class="data-list" id="files-list"></div>
     </div>
 
     <div class="section-card info-card">
@@ -454,6 +476,120 @@ textarea { resize: vertical; }
             <button class="btn btn-ghost" id="nt-cancel-btn" style="display:none" onclick="cancelEdit('nitaqat')">إلغاء</button>
         </div>
         <div class="data-list" id="nt-list"></div>
+    </div>
+
+    <div class="section-card danger-card">
+        <div class="section-title">⚖️ الجزاءات التأديبية</div>
+        <div class="form-group"><label>الموظف</label><select id="vs-emp" onchange="onViolationEmpChange()"></select></div>
+        <div class="form-row">
+            <div class="form-group"><label>الرقم الوظيفي</label><input type="text" id="vs-empid" readonly style="opacity:0.7;"></div>
+            <div class="form-group"><label>تاريخ المخالفة</label><input type="date" id="vs-date"></div>
+        </div>
+        <div class="form-group"><label>بند المخالفة</label>
+            <select id="vs-item">
+                <option value="">— اختر البند —</option>
+                <option>التأخر عن مواعيد الحضور للعمل</option>
+                <option>الانصراف قبل انتهاء ساعات العمل دون إذن</option>
+                <option>الغياب دون إذن أو عذر مقبول</option>
+                <option>ترك مقر العمل أو الموقع دون إذن</option>
+                <option>عدم إثبات الحضور أو الانصراف وفق الآلية المعتمدة</option>
+                <option>عدم التقيد بالزي الرسمي المعتمد</option>
+                <option>عدم تنفيذ التعليمات والأوامر الإدارية المشروعة</option>
+                <option>الإهمال أو التقصير في أداء واجبات العمل</option>
+                <option>إساءة استعمال أدوات أو ممتلكات جهة العمل</option>
+                <option>مخالفة تعليمات الأمن والسلامة</option>
+                <option>التدخين في الأماكن المحظورة</option>
+                <option>إثارة المشكلات أو المشاجرات في مقر العمل</option>
+                <option>الإساءة إلى الزملاء أو الرؤساء أثناء العمل</option>
+                <option>إفشاء معلومات أو بيانات العمل دون تصريح</option>
+                <option>استخدام وسائل أو ممتلكات العمل لأغراض غير مصرح بها</option>
+                <option>عدم المحافظة على الأجهزة المسلمة للموظف</option>
+                <option>رفض التفتيش أو إجراءات الرقابة</option>
+                <option>مخالفة الأنظمة أو السياسات المحددة</option>
+                <option>مخالفة أخرى وفق لائحة تنظيم العمل المعتمدة</option>
+            </select>
+        </div>
+        <div class="form-row">
+            <div class="form-group"><label>تكرار المخالفة</label>
+                <select id="vs-rep">
+                    <option>المرة الأولى</option>
+                    <option>المرة الثانية</option>
+                    <option>المرة الثالثة</option>
+                    <option>المرة الرابعة فأكثر</option>
+                </select>
+            </div>
+            <div class="form-group"><label>الجزاء المطبق</label>
+                <select id="vs-pen">
+                    <option>تنبيه / لفت نظر</option>
+                    <option>إنذار كتابي</option>
+                    <option>حسم من الأجر</option>
+                    <option>حرمان من العلاوة</option>
+                    <option>تأجيل الترقية</option>
+                    <option>الفصل من العمل</option>
+                    <option>جزاء آخر وفق اللائحة</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group"><label>شهر الاستقطاع</label>
+                <select id="vs-month">
+                    <option value="">— بدون —</option>
+                    <option>يناير</option><option>فبراير</option><option>مارس</option>
+                    <option>أبريل</option><option>مايو</option><option>يونيو</option>
+                    <option>يوليو</option><option>أغسطس</option><option>سبتمبر</option>
+                    <option>أكتوبر</option><option>نوفمبر</option><option>ديسمبر</option>
+                </select>
+            </div>
+            <div class="form-group"><label>سنة الاستقطاع</label><input type="number" id="vs-year" placeholder="2026"></div>
+        </div>
+        <div class="form-row">
+            <div class="form-group"><label>تاريخ إشعار الموظف</label><input type="date" id="vs-notifydate"></div>
+            <div class="form-group"><label>الحالة</label>
+                <select id="vs-status">
+                    <option>جديد</option>
+                    <option>طلب إفادة</option>
+                    <option>بانتظار الإفادة</option>
+                    <option>تحت المراجعة</option>
+                    <option>تم اعتماد الجزاء</option>
+                    <option>تم إشعار الموظف</option>
+                    <option>تم الاستقطاع</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group"><label>ملاحظات</label><textarea id="vs-notes" rows="2"></textarea></div>
+        <div class="btn-row">
+            <button class="btn btn-danger" id="vs-submit-btn" onclick="saveItem('violations')">حفظ الجزاء</button>
+            <button class="btn btn-ghost" id="vs-cancel-btn" style="display:none" onclick="cancelEdit('violations')">إلغاء</button>
+        </div>
+        <div class="data-list" id="vs-list"></div>
+    </div>
+
+    <div class="section-card info-card">
+        <div class="section-title">✉️ الخطابات والنماذج الرسمية</div>
+        <div class="form-group"><label>عنوان الخطاب</label><input type="text" id="lt-title" placeholder="مثال: خطاب تجديد رخصة"></div>
+        <div class="form-group">
+            <label>نوع الخطاب</label>
+            <select id="lt-type" onchange="applyLetterTemplate()">
+                <option value="">— اكتب يدوياً —</option>
+                <option value="custom-letter">خطاب رسمي عام</option>
+                <option value="warning">إنذار رسمي</option>
+                <option value="salary-cert">تعريف بالراتب</option>
+                <option value="experience">شهادة خبرة</option>
+                <option value="noc">شهادة عدم اعتراض</option>
+                <option value="resignation-accept">قبول استقالة</option>
+                <option value="termination">إشعار إنهاء عقد</option>
+                <option value="clearance">مخالصة نهائية</option>
+            </select>
+        </div>
+        <div class="form-group"><label>الجهة / المرسل إليه</label><input type="text" id="lt-to" placeholder="مثال: وزارة التجارة، بنك الرياض..."></div>
+        <div class="form-group"><label>نص الخطاب</label><textarea id="lt-body" rows="6" placeholder="اكتب نص الخطاب هنا..."></textarea></div>
+        <div class="form-group"><label>إرفاق صورة / شعار (اختياري)</label><input type="file" id="lt-img" accept="image/*" onchange="handleLetterImage(event)"></div>
+        <div id="lt-img-preview" style="margin-top:6px;"></div>
+        <div class="btn-row">
+            <button class="btn btn-info" id="lt-submit-btn" onclick="saveItem('letters')">حفظ الخطاب</button>
+            <button class="btn btn-ghost" id="lt-cancel-btn" style="display:none" onclick="cancelEdit('letters')">إلغاء</button>
+        </div>
+        <div class="data-list" id="lt-list"></div>
     </div>
 
     <div class="section-card">
@@ -559,7 +695,7 @@ textarea { resize: vertical; }
 <!-- FINANCE TAB -->
 <div id="tab-finance" class="tab-content">
     <div class="section-card">
-        <div class="section-title">💰 دفتر الإيرادات والمصروفات <span class="section-total" id="cb-total-txt"></span></div>
+        <div class="section-title">💰 دفتر الإيرادات والمصروفات <span class="section-total sensitive" id="cb-total-txt"></span></div>
         <div class="form-row">
             <div class="form-group"><label>النوع</label>
                 <select id="cb-type"><option value="in">إيراد</option><option value="out">مصروف</option></select>
@@ -582,6 +718,34 @@ textarea { resize: vertical; }
         <div id="expense-analysis"></div>
     </div>
 
+    <div class="section-card info-card">
+        <div class="section-title">🧮 حاسبة الخصم من الراتب</div>
+        <div class="form-row">
+            <div class="form-group"><label>الراتب الأساسي (ريال)</label><input type="number" id="dc-salary" value="3000" oninput="calcSalaryDeduct()"></div>
+            <div class="form-group"><label>أجر الساعة (ريال)</label><input type="number" id="dc-rate" value="0" oninput="calcSalaryDeduct()" placeholder="اتركه 0 لحساب تلقائي"></div>
+        </div>
+        <div class="form-row">
+            <div class="form-group"><label>نوع الخصم</label>
+                <select id="dc-mode" onchange="calcSalaryDeduct()">
+                    <option value="min-min">الدقيقة بدقيقة</option>
+                    <option value="min-two">الدقيقة بدقيقتين</option>
+                    <option value="day-day">اليوم بيوم</option>
+                    <option value="day-two">اليوم بيومين</option>
+                </select>
+            </div>
+            <div class="form-group"><label>عدد أيام الشهر</label><input type="number" id="dc-days" value="30" oninput="calcSalaryDeduct()"></div>
+        </div>
+        <div class="form-row">
+            <div class="form-group"><label>ساعات التأخير</label><input type="number" id="dc-hours" value="0" oninput="calcSalaryDeduct()"></div>
+            <div class="form-group"><label>دقائق التأخير</label><input type="number" id="dc-mins" value="0" oninput="calcSalaryDeduct()"></div>
+        </div>
+        <div class="form-row">
+            <div class="form-group"><label>عدد أيام الغياب</label><input type="number" id="dc-absdays" value="0" oninput="calcSalaryDeduct()"></div>
+            <div class="form-group"><label>خصم آخر (اختياري)</label><input type="number" id="dc-extra" value="0" oninput="calcSalaryDeduct()"></div>
+        </div>
+        <div id="dc-result" style="margin-top:10px;"></div>
+    </div>
+
     <div class="section-card">
         <div class="section-title">📑 متابعة الشيكات</div>
         <div class="form-row">
@@ -599,6 +763,13 @@ textarea { resize: vertical; }
             <button class="btn btn-ghost" id="chk-cancel-btn" style="display:none" onclick="cancelEdit('checks')">إلغاء</button>
         </div>
         <div class="data-list" id="chk-list"></div>
+    </div>
+
+    <div class="section-card info-card">
+        <div class="section-title">📅 محول التاريخ (ميلادي ⇄ هجري)</div>
+        <div class="form-group"><label>التاريخ الميلادي</label><input type="date" id="cv-greg" oninput="convertFromGreg()"></div>
+        <div class="form-group"><label>التاريخ الهجري (YYYY-MM-DD)</label><input type="text" id="cv-hijri" placeholder="1447-03-15" oninput="convertFromHijri()"></div>
+        <div id="cv-result" style="margin-top:10px;font-size:0.78rem;color:var(--text-muted);text-align:center;"></div>
     </div>
 
     <div class="section-card">
@@ -636,32 +807,12 @@ textarea { resize: vertical; }
         <div class="form-group"><label>المبلغ الأساسي</label><input type="number" id="vat-val" oninput="calcVAT()"></div>
         <p style="font-size:0.78rem;color:var(--text-muted);margin-top:8px;">الضريبة: <b id="vat-tax" style="color:var(--text);">0</b> ر — الإجمالي: <b id="vat-tot" style="color:var(--positive);">0</b> ر</p>
     </div>
-
-    <div class="section-card">
-        <div class="section-title">📝 مولّد الخطابات</div>
-        <div class="form-group">
-            <select id="let-type">
-                <option value="1">اعتذار عن اجتماع</option>
-                <option value="2">اعتذار عن تأخر</option>
-                <option value="3">طلب استئذان</option>
-                <option value="4">خطاب شكر</option>
-                <option value="5">طلب تمديد مهلة</option>
-                <option value="6">إنذار رسمي</option>
-                <option value="7">مخالصة نهائية</option>
-            </select>
-        </div>
-        <div class="btn-row">
-            <button class="btn btn-accent" onclick="genLetter()">توليد</button>
-            <button class="btn btn-ghost" onclick="copyLetter()">نسخ</button>
-        </div>
-        <textarea id="let-out" rows="4" style="margin-top:8px;" readonly></textarea>
-    </div>
 </div>
 
 <!-- SOUL TAB -->
 <div id="tab-soul" class="tab-content">
     <div class="section-card soul-card">
-        <div class="section-title">🕌 دفتر العبادة</div>
+        <div class="section-title">🕌 سجل العبادة اليومي</div>
         <div id="worship-today"></div>
         <div class="data-list" id="worship-list" style="margin-top:12px;"></div>
     </div>
@@ -808,8 +959,8 @@ textarea { resize: vertical; }
 /* =========================================================
    البيانات
 ========================================================= */
-const STORAGE_KEY = 'm_system_v92';
-const OLD_KEYS = ['m_system_v9', 'm_system_v7', 'm_system_v6'];
+const STORAGE_KEY = 'm_system_v10';
+const OLD_KEYS = ['m_system_v92','m_system_v9','m_system_v7','m_system_v6'];
 const DATE_LOCALE = 'ar-SA-u-ca-gregory-nu-latn';
 
 const INTERVIEW_QUESTIONS = [
@@ -824,7 +975,7 @@ function defaultData() {
         licenses: [], workers: [], tasks: [], subs: [], pays: [], notes: [],
         cashbook: [], checks: [], gratitude: [], reflections: [], decisions: [],
         family: [], health: [], worship: {},
-        nitaqat: [], interviews: [],
+        nitaqat: [], interviews: [], empFiles: [], violations: [], letters: [],
         activity: [],
         settings: { autolock: 5, startGlance: false, notifyEnabled: false, notifyDays: 7 },
         lastBackup: null,
@@ -839,7 +990,7 @@ function normalize(d) {
     out.activity = Array.isArray(s.activity) ? s.activity : [];
     out.worship = (typeof s.worship === 'object' && s.worship) ? s.worship : {};
     out.aiHistory = Array.isArray(s.aiHistory) ? s.aiHistory : [];
-    ['licenses','workers','tasks','subs','pays','notes','cashbook','checks','gratitude','reflections','decisions','family','health','nitaqat','interviews'].forEach(k => {
+    ['licenses','workers','tasks','subs','pays','notes','cashbook','checks','gratitude','reflections','decisions','family','health','nitaqat','interviews','empFiles','violations','letters'].forEach(k => {
         if (!Array.isArray(out[k])) out[k] = [];
     });
     return out;
@@ -862,7 +1013,11 @@ function loadData() {
 }
 
 let appData = loadData();
-let editing = {};
+let editing = {
+    licenses:null, workers:null, tasks:null, subs:null, pays:null, notes:null,
+    cashbook:null, checks:null, reflections:null, decisions:null, family:null, health:null,
+    nitaqat:null, interviews:null, empFiles:null, violations:null, letters:null
+};
 let hideDone = false;
 let noteQuery = '';
 let actFilter = 'week';
@@ -870,13 +1025,15 @@ let calState = { y: new Date().getFullYear(), m: new Date().getMonth(), selected
 let idleTimer = null;
 let notifiedKeys = new Set();
 let interviewQS = new Set();
+let pendingFileData = null;
+let pendingLetterImage = null;
 
 /* =========================================================
    FIELD MAP
 ========================================================= */
 const FIELD_MAP = {
     licenses:  { inputs:['lic-name','lic-type','lic-doc','lic-date','lic-cost','lic-notes'], keys:['n','type','doc','d','c','notes'], btn:'lic-submit-btn', cancel:'lic-cancel-btn', add:'إضافة ترخيص', edit:'تحديث' },
-    workers:   { inputs:['work-name','work-empid','work-phone','work-doc','work-date','work-contract'], keys:['n','empId','phone','doc','d','contractEnd'], btn:'work-submit-btn', cancel:'work-cancel-btn', add:'إضافة للرادار', edit:'تحديث' },
+    workers:   { inputs:['work-name','work-empid','work-phone','work-email','work-doc','work-date','work-contract'], keys:['n','empId','phone','email','doc','d','contractEnd'], btn:'work-submit-btn', cancel:'work-cancel-btn', add:'إضافة للرادار', edit:'تحديث' },
     tasks:     { inputs:['task-title','task-prio','task-date','task-repeat'], keys:['t','p','du','rep'], btn:'task-submit-btn', cancel:'task-cancel-btn', add:'إضافة مهمة', edit:'تحديث' },
     subs:      { inputs:['sub-title','sub-cost'], keys:['t','c'], btn:'sub-submit-btn', cancel:'sub-cancel-btn', add:'إضافة اشتراك', edit:'تحديث' },
     pays:      { inputs:['pay-title','pay-amount','pay-day'], keys:['t','a','d'], btn:'pay-submit-btn', cancel:'pay-cancel-btn', add:'إضافة قسط', edit:'تحديث' },
@@ -888,10 +1045,13 @@ const FIELD_MAP = {
     family:    { inputs:['fm-name','fm-rel','fm-note'], keys:['n','rel','note'], btn:'fm-submit-btn', cancel:'fm-cancel-btn', add:'إضافة', edit:'تحديث' },
     health:    { inputs:['hl-who','hl-type','hl-date','hl-note'], keys:['who','type','d','note'], btn:'hl-submit-btn', cancel:'hl-cancel-btn', add:'إضافة', edit:'تحديث' },
     nitaqat:   { inputs:['nt-entity','nt-level','nt-sc','nt-sn','nt-fc','nt-fn'], keys:['entity','level','sc','sn','fc','fn'], btn:'nt-submit-btn', cancel:'nt-cancel-btn', add:'حفظ', edit:'تحديث' },
-    interviews:{ inputs:['it-name','it-pos','it-date','it-decision','it-impression'], keys:['name','pos','date','decision','impression'], btn:'it-submit-btn', cancel:'it-cancel-btn', add:'حفظ المقابلة', edit:'تحديث' }
+    interviews:{ inputs:['it-name','it-pos','it-date','it-decision','it-impression'], keys:['name','pos','date','decision','impression'], btn:'it-submit-btn', cancel:'it-cancel-btn', add:'حفظ المقابلة', edit:'تحديث' },
+    empFiles:  { inputs:['file-emp','file-type','file-desc'], keys:['empName','type','desc'], btn:'file-submit-btn', cancel:'file-cancel-btn', add:'حفظ الملف', edit:'تحديث' },
+    violations:{ inputs:['vs-emp','vs-empid','vs-date','vs-item','vs-rep','vs-pen','vs-month','vs-year','vs-notifydate','vs-status','vs-notes'], keys:['empName','empId','date','item','repeat','penalty','month','year','notifyDate','status','notes'], btn:'vs-submit-btn', cancel:'vs-cancel-btn', add:'حفظ الجزاء', edit:'تحديث' },
+    letters:   { inputs:['lt-title','lt-type','lt-to','lt-body'], keys:['title','type','to','body'], btn:'lt-submit-btn', cancel:'lt-cancel-btn', add:'حفظ الخطاب', edit:'تحديث' }
 };
 
-const CAT_LABEL = { licenses:'تراخيص', workers:'عمالة', tasks:'مهام', subs:'اشتراكات', pays:'أقساط', notes:'مفكرة', cashbook:'مالية', checks:'شيكات', gratitude:'امتنان', reflections:'تأمّل', decisions:'قرارات', family:'عائلة', health:'صحة', worship:'عبادة', nitaqat:'نطاقات', interviews:'مقابلات' };
+const CAT_LABEL = { licenses:'تراخيص', workers:'عمالة', tasks:'مهام', subs:'اشتراكات', pays:'أقساط', notes:'مفكرة', cashbook:'مالية', checks:'شيكات', gratitude:'امتنان', reflections:'تأمّل', decisions:'قرارات', family:'عائلة', health:'صحة', worship:'عبادة', nitaqat:'نطاقات', interviews:'مقابلات', empFiles:'ملفات', violations:'جزاءات', letters:'خطابات' };
 const TAB_NAV = { 'tab-home':'nav-home','tab-work':'nav-hr','tab-personal':'nav-personal','tab-finance':'nav-finance','tab-soul':'nav-soul' };
 
 /* =========================================================
@@ -924,7 +1084,7 @@ function expiryBadge(days) {
 }
 
 /* =========================================================
-   Saudi Official Holidays
+   Holidays (fixed: separate Eid)
 ========================================================= */
 const HOLIDAYS_CACHE = {};
 function getHolidaysForYear(gy) {
@@ -943,10 +1103,14 @@ function getHolidaysForYear(gy) {
                 const hm = parseInt(parts.find(p => p.type === 'month').value, 10);
                 const hd = parseInt(parts.find(p => p.type === 'day').value, 10);
                 const ds = toDateStr(dt);
-                if (hm === 10 && hd === 1) result.push({ d: ds, name: 'عيد الفطر', type: 'eid' });
-                else if (hm === 10 && hd >= 2 && hd <= 4) result.push({ d: ds, name: 'إجازة عيد الفطر', type: 'eid' });
-                else if (hm === 12 && hd === 10) result.push({ d: ds, name: 'عيد الأضحى', type: 'eid' });
-                else if (hm === 12 && hd >= 11 && hd <= 13) result.push({ d: ds, name: 'إجازة عيد الأضحى', type: 'eid' });
+                if (hm === 10 && hd === 1) result.push({ d: ds, name: 'عيد الفطر', type: 'fiter' });
+                else if (hm === 10 && hd === 2) result.push({ d: ds, name: 'إجازة عيد الفطر (اليوم الثاني)', type: 'fiter' });
+                else if (hm === 10 && hd === 3) result.push({ d: ds, name: 'إجازة عيد الفطر (اليوم الثالث)', type: 'fiter' });
+                else if (hm === 10 && hd === 4) result.push({ d: ds, name: 'إجازة عيد الفطر (اليوم الرابع)', type: 'fiter' });
+                else if (hm === 12 && hd === 10) result.push({ d: ds, name: 'عيد الأضحى', type: 'adha' });
+                else if (hm === 12 && hd === 11) result.push({ d: ds, name: 'إجازة عيد الأضحى (اليوم الثاني)', type: 'adha' });
+                else if (hm === 12 && hd === 12) result.push({ d: ds, name: 'إجازة عيد الأضحى (اليوم الثالث)', type: 'adha' });
+                else if (hm === 12 && hd === 13) result.push({ d: ds, name: 'إجازة عيد الأضحى (اليوم الرابع)', type: 'adha' });
                 else if (hm === 1 && hd === 1) result.push({ d: ds, name: 'رأس السنة الهجرية', type: 'official' });
             }
         }
@@ -1023,7 +1187,7 @@ function changePassword() {
 }
 
 /* =========================================================
-   Persist & Navigation
+   Persist & Nav
 ========================================================= */
 function persist() { localStorage.setItem(STORAGE_KEY, JSON.stringify(appData)); updateDashboard(); }
 function switchTab(id, btn) {
@@ -1068,21 +1232,39 @@ function saveItem(cat) {
         values[cfg.keys[i]] = v;
     });
     const rk = cfg.keys[0];
-    if (!values[rk]) { toast('عبّئ الحقل الأساسي', 'warn'); return; }
-    if (cat === 'tasks') values.done = editing.tasks !== null ? appData.tasks[editing.tasks].done : false;
-    if (cat === 'notes') values.ts = editing.notes !== null ? appData.notes[editing.notes].ts : Date.now();
+    if (cat !== 'gratitude' && !values[rk]) { toast('عبّئ الحقل الأساسي', 'warn'); return; }
+    if (cat === 'tasks') values.done = (editing.tasks !== null && editing.tasks !== undefined && appData.tasks[editing.tasks]) ? appData.tasks[editing.tasks].done : false;
+    if (cat === 'notes') values.ts = (editing.notes !== null && editing.notes !== undefined && appData.notes[editing.notes]) ? appData.notes[editing.notes].ts : Date.now();
     if (cat === 'gratitude') values.ts = Date.now();
-    if (cat === 'reflections') values.ts = editing.reflections !== null ? appData.reflections[editing.reflections].ts : Date.now();
+    if (cat === 'reflections') values.ts = (editing.reflections !== null && editing.reflections !== undefined && appData.reflections[editing.reflections]) ? appData.reflections[editing.reflections].ts : Date.now();
     if (cat === 'decisions') values.ts = Date.now();
     if (cat === 'interviews') {
         values.qs = Array.from(interviewQS);
-        values.ts = editing.interviews !== null ? appData.interviews[editing.interviews].ts : Date.now();
+        values.ts = (editing.interviews !== null && editing.interviews !== undefined && appData.interviews[editing.interviews]) ? appData.interviews[editing.interviews].ts : Date.now();
     }
     if (cat === 'nitaqat') {
         values.sc = parseInt(values.sc) || 0;
         values.sn = parseInt(values.sn) || 0;
         values.fc = parseInt(values.fc) || 0;
         values.fn = parseInt(values.fn) || 0;
+    }
+    if (cat === 'empFiles') {
+        if (!pendingFileData && !(editing.empFiles !== null && appData.empFiles[editing.empFiles])) { toast('اختر ملف', 'warn'); return; }
+        if (pendingFileData) {
+            values.fileData = pendingFileData.data;
+            values.fileName = pendingFileData.name;
+            values.fileType = pendingFileData.mime;
+        } else {
+            values.fileData = appData.empFiles[editing.empFiles].fileData;
+            values.fileName = appData.empFiles[editing.empFiles].fileName;
+            values.fileType = appData.empFiles[editing.empFiles].fileType;
+        }
+        values.ts = Date.now();
+    }
+    if (cat === 'letters') {
+        if (pendingLetterImage) values.image = pendingLetterImage;
+        else if (editing.letters !== null && appData.letters[editing.letters]) values.image = appData.letters[editing.letters].image;
+        values.ts = Date.now();
     }
     if (editing[cat] !== null && editing[cat] !== undefined) {
         appData[cat][editing[cat]] = Object.assign({}, appData[cat][editing[cat]], values);
@@ -1093,8 +1275,10 @@ function saveItem(cat) {
         logAct(cat, 'add', values[rk]);
         toast('تمت الإضافة');
     }
-    cfg.inputs.forEach(id => { const el = $(id); if (el && el.tagName !== 'SELECT') el.value = ''; });
+    cfg.inputs.forEach(id => { const el = $(id); if (el && el.tagName !== 'SELECT' && el.type !== 'file') el.value = ''; });
     if (cat === 'interviews') { interviewQS.clear(); renderInterviewQuestions(); }
+    if (cat === 'empFiles') { pendingFileData = null; $('file-preview').innerHTML = ''; }
+    if (cat === 'letters') { pendingLetterImage = null; $('lt-img-preview').innerHTML = ''; }
     resetSubmitBtn(cat);
     persist(); renderCategory(cat);
 }
@@ -1102,9 +1286,15 @@ function editItem(cat, idx) {
     const cfg = FIELD_MAP[cat]; const item = appData[cat][idx];
     if (!item) return;
     cfg.inputs.forEach((id, i) => { const el = $(id); if (el) el.value = item[cfg.keys[i]] ?? ''; });
-    if (cat === 'interviews') {
-        interviewQS = new Set(item.qs || []);
-        renderInterviewQuestions();
+    if (cat === 'interviews') { interviewQS = new Set(item.qs || []); renderInterviewQuestions(); }
+    if (cat === 'violations') onViolationEmpChange(true);
+    if (cat === 'empFiles') {
+        const preview = $('file-preview');
+        preview.innerHTML = item.fileData ? `<div class="file-chip">📎 ${esc(item.fileName)} (${esc(item.fileType)})</div>` : '';
+        pendingFileData = null;
+    }
+    if (cat === 'letters' && item.image) {
+        $('lt-img-preview').innerHTML = `<div class="file-chip">🖼️ صورة مرفقة <span class="x" onclick="clearLetterImage()">✕</span></div>`;
     }
     editing[cat] = idx;
     const b = $(cfg.btn); if (b) b.textContent = cfg.edit;
@@ -1113,8 +1303,10 @@ function editItem(cat, idx) {
 }
 function cancelEdit(cat) {
     const cfg = FIELD_MAP[cat]; editing[cat] = null;
-    cfg.inputs.forEach(id => { const el = $(id); if (el && el.tagName !== 'SELECT') el.value = ''; });
+    cfg.inputs.forEach(id => { const el = $(id); if (el && el.tagName !== 'SELECT' && el.type !== 'file') el.value = ''; });
     if (cat === 'interviews') { interviewQS.clear(); renderInterviewQuestions(); }
+    if (cat === 'empFiles') { pendingFileData = null; $('file-preview').innerHTML = ''; }
+    if (cat === 'letters') { pendingLetterImage = null; $('lt-img-preview').innerHTML = ''; }
     resetSubmitBtn(cat);
 }
 function resetSubmitBtn(cat) {
@@ -1153,7 +1345,7 @@ function onNoteSearch(v) { noteQuery = v.trim().toLowerCase(); renderCategory('n
 function renderCategory(cat) {
     switch(cat) {
         case 'licenses': renderLicenses(); break;
-        case 'workers': renderWorkers(); break;
+        case 'workers': renderWorkers(); refreshEmployeeSelects(); break;
         case 'tasks': renderTasks(); break;
         case 'subs': renderSubs(); break;
         case 'pays': renderPays(); break;
@@ -1167,6 +1359,9 @@ function renderCategory(cat) {
         case 'health': renderHealth(); break;
         case 'nitaqat': renderNitaqat(); break;
         case 'interviews': renderInterviews(); break;
+        case 'empFiles': renderEmpFiles(); break;
+        case 'violations': renderViolations(); break;
+        case 'letters': renderLetters(); break;
     }
     updateDashboard();
 }
@@ -1212,9 +1407,10 @@ function renderWorkers() {
                 <span class="data-item-title">${esc(x.n)}</span>
                 <div class="data-item-sub-row">
                     ${x.empId ? `<span class="data-item-sub">🔢 ${esc(x.empId)}</span>` : ''}
-                    ${x.phone ? `<span class="data-item-sub">📱 ${esc(x.phone)}</span>` : ''}
+                    ${x.phone ? `<span class="data-item-sub sensitive">📱 ${esc(x.phone)}</span>` : ''}
                 </div>
                 <div class="data-item-sub-row">
+                    ${x.email ? `<span class="data-item-sub">✉️ ${esc(x.email)}</span>` : ''}
                     ${x.doc ? `<span class="data-item-sub">${esc(x.doc)}</span>` : ''}
                     <span class="data-item-sub">${fmtDate(x.d)}</span>
                 </div>
@@ -1223,13 +1419,13 @@ function renderWorkers() {
             </div>
             <div class="data-item-actions">
                 ${x.phone ? `<button class="mini-btn mini-btn-wa" onclick="whatsappWorker(${i})">واتس</button>` : ''}
+                ${x.email ? `<button class="mini-btn mini-btn-info" onclick="emailWorker(${i})">بريد</button>` : ''}
                 <button class="mini-btn" onclick="editItem('workers',${i})">تعديل</button>
                 <button class="mini-btn mini-btn-danger" onclick="deleteItem('workers',${i})">حذف</button>
             </div>
         </div>`;
     }).join('');
 }
-
 function whatsappWorker(i) {
     const w = appData.workers[i]; if (!w) return;
     let phone = (w.phone || '').replace(/\D/g, '');
@@ -1238,6 +1434,12 @@ function whatsappWorker(i) {
     else if (phone.length === 9) phone = '966' + phone;
     const msg = `السلام عليكم ${w.n}\nنتواصل معك بخصوص ${w.doc || 'وثيقتك'}${w.d ? ' المنتهية في ' + fmtDate(w.d) : ''}. نأمل المتابعة.`;
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+function emailWorker(i) {
+    const w = appData.workers[i]; if (!w) return;
+    const subject = 'بخصوص ' + (w.doc || 'الوثيقة');
+    const body = `السلام عليكم ${w.n}\n\nنتواصل معك بخصوص ${w.doc || 'وثيقتك'}${w.d ? ' المنتهية في ' + fmtDate(w.d) : ''}.\n\nمع التقدير.`;
+    window.location.href = `mailto:${w.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
 function renderTasks() {
@@ -1283,7 +1485,7 @@ function renderSubs() {
     el.innerHTML = appData.subs.map((x, i) => `<div class="data-item" id="di-subs-${i}">
         <div class="data-item-main">
             <span class="data-item-title">${esc(x.t)}</span>
-            <span class="data-item-sub">${fmtNum(x.c,0)} ر/شهر</span>
+            <span class="data-item-sub sensitive">${fmtNum(x.c,0)} ر/شهر</span>
         </div>
         <div class="data-item-actions">
             <button class="mini-btn" onclick="editItem('subs',${i})">تعديل</button>
@@ -1301,7 +1503,7 @@ function renderPays() {
         <div class="data-item-main">
             <span class="data-item-title">${esc(x.t)}</span>
             <div class="data-item-sub-row">
-                <span class="data-item-sub">${fmtNum(x.a,0)} ر</span>
+                <span class="data-item-sub sensitive">${fmtNum(x.a,0)} ر</span>
                 ${x.d ? `<span class="data-item-sub">استحقاق: ${esc(x.d)}</span>` : ''}
             </div>
         </div>
@@ -1349,7 +1551,7 @@ function renderCashbook() {
             ${c.note ? `<span class="data-item-sub">${esc(c.note)}</span>` : ''}
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
-            <span style="font-weight:900;color:${c.type === 'in' ? 'var(--positive)' : 'var(--danger)'};font-variant-numeric:tabular-nums;">${c.type === 'in' ? '+' : '-'}${fmtNum(c.amount,0)}</span>
+            <span class="sensitive" style="font-weight:900;color:${c.type === 'in' ? 'var(--positive)' : 'var(--danger)'};font-variant-numeric:tabular-nums;">${c.type === 'in' ? '+' : '-'}${fmtNum(c.amount,0)}</span>
             <div class="data-item-actions">
                 <button class="mini-btn" onclick="editItem('cashbook',${c.idx})">تعديل</button>
                 <button class="mini-btn mini-btn-danger" onclick="deleteItem('cashbook',${c.idx})">حذف</button>
@@ -1371,11 +1573,11 @@ function renderExpenseAnalysis() {
     const max = sorted[0][1] || 1;
     const total = outs.reduce((a, c) => a + (c.amount||0), 0);
     el.innerHTML = `
-        <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:10px;">إجمالي المصروفات: <b style="color:var(--danger);">${fmtNum(total,0)} ر</b> • ${outs.length} حركة</p>
+        <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:10px;">إجمالي المصروفات: <b class="sensitive" style="color:var(--danger);">${fmtNum(total,0)} ر</b> • ${outs.length} حركة</p>
         ${sorted.map(([cat, amt]) => `<div class="bar-row">
             <div class="bar-head">
                 <span>${esc(cat)}</span>
-                <span class="bar-amt">${fmtNum(amt,0)} ر (${Math.round(amt/total*100)}%)</span>
+                <span class="bar-amt sensitive">${fmtNum(amt,0)} ر (${Math.round(amt/total*100)}%)</span>
             </div>
             <div class="bar-outer"><div class="bar-inner" style="width:${(amt/max*100)}%;background:linear-gradient(90deg,var(--danger),var(--warn));"></div></div>
         </div>`).join('')}`;
@@ -1391,7 +1593,7 @@ function renderChecks() {
             <div class="data-item-main">
                 <span class="data-item-title">${c.type === 'in' ? '📥 وارد' : '📤 صادر'} — ${esc(c.party)}</span>
                 <div class="data-item-sub-row">
-                    <span class="data-item-sub">${fmtNum(c.amount,0)} ر</span>
+                    <span class="data-item-sub sensitive">${fmtNum(c.amount,0)} ر</span>
                     <span class="data-item-sub">${fmtDate(c.d)}</span>
                 </div>
                 ${expiryBadge(dd)}
@@ -1499,7 +1701,6 @@ function nitaqatClass(level) {
     if (level === 'أخضر منخفض') return 'nit-lg';
     return 'nit-red';
 }
-
 function renderNitaqat() {
     const el = $('nt-list');
     if (!appData.nitaqat.length) { el.innerHTML = emptyState('لم تسجّل أي سجل بعد'); return; }
@@ -1530,8 +1731,8 @@ function renderNitaqat() {
 
 function renderInterviewQuestions() {
     const el = $('it-questions'); if (!el) return;
-    el.innerHTML = INTERVIEW_QUESTIONS.map((q, i) =>
-        `<span class="q-chip ${interviewQS.has(q) ? 'on' : ''}" onclick="toggleQuestion('${esc(q).replace(/'/g, '&#39;')}')">${esc(q)}</span>`
+    el.innerHTML = INTERVIEW_QUESTIONS.map(q =>
+        `<span class="q-chip ${interviewQS.has(q) ? 'on' : ''}" onclick='toggleQuestion(${JSON.stringify(q)})'>${esc(q)}</span>`
     ).join('');
 }
 function toggleQuestion(q) {
@@ -1541,7 +1742,7 @@ function toggleQuestion(q) {
 
 function renderInterviews() {
     const el = $('it-list');
-    if (!appData.interviews.length) { el.innerHTML = emptyState('لا توجد مقابلات مسجلة'); return; }
+    if (!appData.interviews.length) { el.innerHTML = emptyState('لا توجد مقابلات'); return; }
     const decisionCls = { 'مقبول':'badge-ok', 'مرفوض':'badge-danger', 'معلّق':'badge-warn', 'قائمة انتظار':'badge-info' };
     el.innerHTML = appData.interviews.slice().reverse().map(it => {
         const idx = appData.interviews.indexOf(it);
@@ -1552,7 +1753,7 @@ function renderInterviews() {
                     ${it.date ? `<span class="data-item-sub">📅 ${fmtDate(it.date)}</span>` : ''}
                     <span class="badge ${decisionCls[it.decision] || 'badge-warn'}" style="margin:0;">${esc(it.decision || 'معلّق')}</span>
                 </div>
-                ${it.qs && it.qs.length ? `<span class="data-item-sub">📋 ${it.qs.length} سؤال مطروح</span>` : ''}
+                ${it.qs && it.qs.length ? `<span class="data-item-sub">📋 ${it.qs.length} سؤال</span>` : ''}
                 ${it.impression ? `<span class="data-item-sub">💬 ${esc(it.impression)}</span>` : ''}
             </div>
             <div class="data-item-actions">
@@ -1561,6 +1762,143 @@ function renderInterviews() {
             </div>
         </div>`;
     }).join('');
+}
+
+function renderEmpFiles() {
+    const el = $('files-list');
+    if (!appData.empFiles.length) { el.innerHTML = emptyState('لا توجد ملفات'); return; }
+    const sorted = appData.empFiles.slice().reverse();
+    el.innerHTML = sorted.map(f => {
+        const idx = appData.empFiles.indexOf(f);
+        const isImg = (f.fileType || '').startsWith('image/');
+        const thumb = isImg ? `<img class="thumb" src="${f.fileData}" alt="">` : '';
+        return `<div class="data-item" id="di-empFiles-${idx}">
+            <div class="data-item-main">
+                <span class="data-item-title">${esc(f.empName)} — ${esc(f.type)}</span>
+                ${f.desc ? `<span class="data-item-sub">${esc(f.desc)}</span>` : ''}
+                <div class="file-chip">${thumb} <a href="${f.fileData}" download="${esc(f.fileName)}">📎 ${esc(f.fileName)}</a></div>
+            </div>
+            <div class="data-item-actions">
+                <button class="mini-btn" onclick="editItem('empFiles',${idx})">تعديل</button>
+                <button class="mini-btn mini-btn-danger" onclick="deleteItem('empFiles',${idx})">حذف</button>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function renderViolations() {
+    const el = $('vs-list');
+    if (!appData.violations.length) { el.innerHTML = emptyState('لا توجد جزاءات مسجلة'); return; }
+    const statusCls = {
+        'جديد':'badge-warn', 'طلب إفادة':'badge-info', 'بانتظار الإفادة':'badge-info',
+        'تحت المراجعة':'badge-warn', 'تم اعتماد الجزاء':'badge-info',
+        'تم إشعار الموظف':'badge-ok', 'تم الاستقطاع':'badge-danger'
+    };
+    el.innerHTML = appData.violations.slice().reverse().map(v => {
+        const idx = appData.violations.indexOf(v);
+        return `<div class="data-item" id="di-violations-${idx}">
+            <div class="data-item-main">
+                <span class="data-item-title">⚖️ ${esc(v.empName)} — ${esc(v.repeat)}</span>
+                <span class="data-item-sub">📋 ${esc(v.item).slice(0,60)}</span>
+                <div class="data-item-sub-row">
+                    ${v.date ? `<span class="data-item-sub">📅 ${fmtDate(v.date)}</span>` : ''}
+                    <span class="data-item-sub">🛑 ${esc(v.penalty)}</span>
+                </div>
+                <div class="data-item-sub-row">
+                    ${v.month ? `<span class="data-item-sub">💰 استقطاع: ${esc(v.month)} ${esc(v.year||'')}</span>` : ''}
+                    <span class="badge ${statusCls[v.status] || 'badge-warn'}" style="margin:0;">${esc(v.status)}</span>
+                </div>
+            </div>
+            <div class="data-item-actions">
+                <button class="mini-btn" onclick="editItem('violations',${idx})">تعديل</button>
+                <button class="mini-btn mini-btn-danger" onclick="deleteItem('violations',${idx})">حذف</button>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function renderLetters() {
+    const el = $('lt-list');
+    if (!appData.letters.length) { el.innerHTML = emptyState('لا توجد خطابات'); return; }
+    el.innerHTML = appData.letters.slice().reverse().map(l => {
+        const idx = appData.letters.indexOf(l);
+        return `<div class="data-item" id="di-letters-${idx}">
+            <div class="data-item-main">
+                <span class="data-item-title">✉️ ${esc(l.title)}</span>
+                ${l.to ? `<span class="data-item-sub">إلى: ${esc(l.to)}</span>` : ''}
+                <span class="data-item-sub">${esc((l.body||'').slice(0,80))}</span>
+            </div>
+            <div class="data-item-actions">
+                <button class="mini-btn mini-btn-info" onclick="printLetter(${idx})">طباعة</button>
+                <button class="mini-btn" onclick="editItem('letters',${idx})">تعديل</button>
+                <button class="mini-btn mini-btn-danger" onclick="deleteItem('letters',${idx})">حذف</button>
+            </div>
+        </div>`;
+    }).join('');
+}
+function printLetter(idx) {
+    const l = appData.letters[idx]; if (!l) return;
+    const w = window.open('', '_blank');
+    const img = l.image ? `<img src="${l.image}" style="max-width:100%;margin-bottom:16px;">` : '';
+    w.document.write(`<html dir="rtl"><head><meta charset="utf-8"><title>${esc(l.title)}</title>
+        <style>body{font-family:Tajawal,sans-serif;padding:30px;line-height:1.9;font-size:15px;} h2{color:#a3781e;} .body{white-space:pre-wrap;}</style>
+        </head><body>${img}<h2>${esc(l.title)}</h2>${l.to?`<p><b>إلى:</b> ${esc(l.to)}</p>`:''}<div class="body">${esc(l.body)}</div></body></html>`);
+    w.document.close();
+    setTimeout(() => w.print(), 300);
+}
+
+function refreshEmployeeSelects() {
+    const opts = '<option value="">— اختر الموظف —</option>' + appData.workers.map(w => `<option value="${esc(w.n)}">${esc(w.n)}${w.empId?' ('+esc(w.empId)+')':''}</option>`).join('');
+    const f = $('file-emp'); if (f) { const cur = f.value; f.innerHTML = opts; f.value = cur; }
+    const v = $('vs-emp'); if (v) { const cur = v.value; v.innerHTML = opts; v.value = cur; }
+}
+function onViolationEmpChange(silent) {
+    const name = $('vs-emp').value;
+    const w = appData.workers.find(x => x.n === name);
+    $('vs-empid').value = w ? (w.empId || '') : '';
+    if (!silent) return;
+}
+
+function handleFileSelect(e) {
+    const file = e.target.files[0];
+    if (!file) { pendingFileData = null; $('file-preview').innerHTML = ''; return; }
+    if (file.size > 900000) { toast('الملف كبير (الحد ~900KB)', 'danger'); e.target.value=''; return; }
+    const reader = new FileReader();
+    reader.onload = ev => {
+        pendingFileData = { data: ev.target.result, name: file.name, mime: file.type };
+        const isImg = file.type.startsWith('image/');
+        $('file-preview').innerHTML = `<div class="file-chip">${isImg ? `<img class="thumb" src="${ev.target.result}">` : ''} 📎 ${esc(file.name)} <span class="x" onclick="clearPendingFile()">✕</span></div>`;
+    };
+    reader.readAsDataURL(file);
+}
+function clearPendingFile() { pendingFileData = null; $('file-input').value = ''; $('file-preview').innerHTML = ''; }
+
+function handleLetterImage(e) {
+    const file = e.target.files[0];
+    if (!file) { pendingLetterImage = null; $('lt-img-preview').innerHTML = ''; return; }
+    if (file.size > 500000) { toast('الصورة كبيرة (الحد ~500KB)', 'danger'); e.target.value=''; return; }
+    const reader = new FileReader();
+    reader.onload = ev => {
+        pendingLetterImage = ev.target.result;
+        $('lt-img-preview').innerHTML = `<div class="file-chip">🖼️ صورة <span class="x" onclick="clearLetterImage()">✕</span></div>`;
+    };
+    reader.readAsDataURL(file);
+}
+function clearLetterImage() { pendingLetterImage = null; $('lt-img').value = ''; $('lt-img-preview').innerHTML = ''; }
+
+const LETTER_TEMPLATES = {
+    'custom-letter': '',
+    'warning': 'السلام عليكم ورحمة الله وبركاته،،\n\nنفيدكم بأنه قد صدر بحقكم إنذار رسمي بسبب المخالفة الموضحة أعلاه، ونأمل الالتزام بالأنظمة والتعليمات.\n\nمع التقدير.',
+    'salary-cert': 'نشهد بأن الموظف يعمل لدينا براتب شهري قدره (____) ريال، وذلك بناءً على طلبه لتقديمه للجهة المختصة.\n\nوالله الموفق.',
+    'experience': 'نشهد بأن الموظف عمل لدينا من تاريخ (____) إلى تاريخ (____) بتقييم جيد لأداء مهامه.\n\nمع التقدير.',
+    'noc': 'لا مانع لدينا من نقل كفالة الموظف (____) إلى جهة أخرى بعد إتمام إجراءات نهاية الخدمة.',
+    'resignation-accept': 'تم قبول استقالة الموظف (____) اعتباراً من تاريخ (____)، وستُصرف مستحقاته النظامية.',
+    'termination': 'نفيدكم بإنهاء عقد العمل اعتباراً من تاريخ (____) وفقاً لما تقتضيه المصلحة، مع صرف المستحقات النظامية.',
+    'clearance': 'أقر أنا الموقّع أدناه باستلامي كامل مستحقاتي المالية والعينية، وأبرئ ذمة المنشأة إبراءً تاماً.'
+};
+function applyLetterTemplate() {
+    const t = $('lt-type').value;
+    if (t && LETTER_TEMPLATES[t] !== undefined) $('lt-body').value = LETTER_TEMPLATES[t];
 }
 
 /* =========================================================
@@ -1682,12 +2020,10 @@ function renderDailyBrief() {
     const openTasks = appData.tasks.filter(t => !t.done).length;
     const critical = collectExpiring().filter(a => a.days <= 7).length;
     const nextHoliday = getUpcomingHolidays(1)[0];
-    const prayerNote = h >= 20 || h < 4 ? 'لا تنسَ وردك قبل النوم.' : h < 10 ? 'ابدأ يومك بوردك.' : '';
     el.innerHTML = `<p style="font-size:0.82rem;line-height:1.8;color:var(--text);">
         ${time} يا محمد.<br>
         عندك <b>${openTasks}</b> مهمة مفتوحة، و<b style="color:var(--danger);">${critical}</b> تنبيه حرج.<br>
-        ${nextHoliday ? `<span style="color:var(--holiday);font-weight:700;">🎉 قرب ${esc(nextHoliday.name)} (${nextHoliday.days} يوم)</span><br>` : ''}
-        ${prayerNote ? `<span style="color:var(--soul);font-weight:700;">${prayerNote}</span>` : ''}
+        ${nextHoliday ? `<span style="color:var(--holiday);font-weight:700;">🎉 قرب ${esc(nextHoliday.name)} (${nextHoliday.days} يوم)</span>` : ''}
     </p>`;
 }
 
@@ -1764,15 +2100,18 @@ function runSearch(q) {
     if (!q) { out.innerHTML = emptyState('اكتب كلمة'); return; }
     const r = [];
     appData.licenses.forEach((x, i) => { if (matches([x.n,x.type,x.doc,x.d,x.c,x.notes], q)) r.push({ cat:'licenses', i, icon:'🏢', title:x.n, sub:(x.type||'ترخيص') + ' • ' + fmtDate(x.d) }); });
-    appData.workers.forEach((x, i) => { if (matches([x.n,x.doc,x.d,x.phone,x.empId,x.contractEnd], q)) r.push({ cat:'workers', i, icon:'👷', title:x.n, sub:'عمالة • ' + (x.phone || '') }); });
+    appData.workers.forEach((x, i) => { if (matches([x.n,x.doc,x.d,x.phone,x.empId,x.contractEnd,x.email], q)) r.push({ cat:'workers', i, icon:'👷', title:x.n, sub:'عمالة • ' + (x.phone || '') }); });
     appData.tasks.forEach((x, i) => { if (matches([x.t,x.p,x.du], q)) r.push({ cat:'tasks', i, icon:'✅', title:x.t, sub:'مهمة • ' + x.p }); });
-    appData.subs.forEach((x, i) => { if (matches([x.t,x.c], q)) r.push({ cat:'subs', i, icon:'🔄', title:x.t, sub:'اشتراك • ' + fmtNum(x.c,0) + ' ر' }); });
-    appData.pays.forEach((x, i) => { if (matches([x.t,x.a,x.d], q)) r.push({ cat:'pays', i, icon:'📅', title:x.t, sub:'قسط • ' + fmtNum(x.a,0) }); });
+    appData.subs.forEach((x, i) => { if (matches([x.t,x.c], q)) r.push({ cat:'subs', i, icon:'🔄', title:x.t, sub:'اشتراك' }); });
+    appData.pays.forEach((x, i) => { if (matches([x.t,x.a,x.d], q)) r.push({ cat:'pays', i, icon:'📅', title:x.t, sub:'قسط' }); });
     appData.notes.forEach((x, i) => { if (matches([x.t,x.b,x.tags], q)) r.push({ cat:'notes', i, icon:'📖', title:x.t, sub:'مفكرة' }); });
-    appData.cashbook.forEach((x, i) => { if (matches([x.cat,x.note,x.amount], q)) r.push({ cat:'cashbook', i, icon:'💰', title:x.cat || x.note || 'حركة', sub:(x.type === 'in' ? 'إيراد' : 'مصروف') + ' • ' + fmtNum(x.amount,0) }); });
-    appData.checks.forEach((x, i) => { if (matches([x.party,x.amount,x.d], q)) r.push({ cat:'checks', i, icon:'📑', title:x.party, sub:'شيك • ' + fmtNum(x.amount,0) }); });
+    appData.cashbook.forEach((x, i) => { if (matches([x.cat,x.note,x.amount], q)) r.push({ cat:'cashbook', i, icon:'💰', title:x.cat || x.note || 'حركة', sub:(x.type === 'in' ? 'إيراد' : 'مصروف') }); });
+    appData.checks.forEach((x, i) => { if (matches([x.party,x.amount,x.d], q)) r.push({ cat:'checks', i, icon:'📑', title:x.party, sub:'شيك' }); });
     appData.nitaqat.forEach((x, i) => { if (matches([x.entity,x.level], q)) r.push({ cat:'nitaqat', i, icon:'📊', title:x.entity, sub:'نطاق • ' + x.level }); });
-    appData.interviews.forEach((x, i) => { if (matches([x.name,x.pos,x.impression,x.decision], q)) r.push({ cat:'interviews', i, icon:'💼', title:x.name, sub:'مقابلة • ' + (x.pos||'') }); });
+    appData.interviews.forEach((x, i) => { if (matches([x.name,x.pos,x.impression,x.decision], q)) r.push({ cat:'interviews', i, icon:'💼', title:x.name, sub:'مقابلة' }); });
+    appData.empFiles.forEach((x, i) => { if (matches([x.empName,x.type,x.desc,x.fileName], q)) r.push({ cat:'empFiles', i, icon:'📎', title:x.empName, sub:x.type }); });
+    appData.violations.forEach((x, i) => { if (matches([x.empName,x.item,x.penalty,x.status,x.notes], q)) r.push({ cat:'violations', i, icon:'⚖️', title:x.empName, sub:'جزاء • ' + x.repeat }); });
+    appData.letters.forEach((x, i) => { if (matches([x.title,x.to,x.body], q)) r.push({ cat:'letters', i, icon:'✉️', title:x.title, sub:'خطاب' }); });
     appData.family.forEach((x, i) => { if (matches([x.n,x.rel,x.note], q)) r.push({ cat:'family', i, icon:'👨‍👩‍👧', title:x.n, sub:'عائلة' }); });
     appData.health.forEach((x, i) => { if (matches([x.who,x.type,x.note], q)) r.push({ cat:'health', i, icon:'🩺', title:x.who + ' — ' + x.type, sub:'صحة' }); });
     appData.decisions.forEach((x, i) => { if (matches([x.t,x.why], q)) r.push({ cat:'decisions', i, icon:'⚖️', title:x.t, sub:'قرار' }); });
@@ -1789,7 +2128,7 @@ function runSearch(q) {
 }
 function goToItem(cat, idx) {
     closeSearch();
-    const tabMap = { licenses:'tab-work', workers:'tab-work', nitaqat:'tab-work', interviews:'tab-work', tasks:'tab-personal', subs:'tab-personal', pays:'tab-personal', notes:'tab-personal', cashbook:'tab-finance', checks:'tab-finance', gratitude:'tab-soul', reflections:'tab-soul', decisions:'tab-soul', family:'tab-soul', health:'tab-soul' };
+    const tabMap = { licenses:'tab-work', workers:'tab-work', nitaqat:'tab-work', interviews:'tab-work', empFiles:'tab-work', violations:'tab-work', letters:'tab-work', tasks:'tab-personal', subs:'tab-personal', pays:'tab-personal', notes:'tab-personal', cashbook:'tab-finance', checks:'tab-finance', gratitude:'tab-soul', reflections:'tab-soul', decisions:'tab-soul', family:'tab-soul', health:'tab-soul' };
     const tab = tabMap[cat] || 'tab-home';
     const btn = $(TAB_NAV[tab]);
     if (btn) switchTab(tab, btn); else goToTab(tab);
@@ -1800,10 +2139,9 @@ function goToItem(cat, idx) {
 }
 
 /* =========================================================
-   Calendar (with holidays)
+   Calendar
 ========================================================= */
 function parseDayNumber(s) { const m = String(s || '').match(/\d{1,2}/); return m ? parseInt(m[0], 10) : null; }
-
 function buildMonthEvents(y, m) {
     const out = [];
     const inMonth = d => d && d.getFullYear() === y && d.getMonth() === m;
@@ -1815,21 +2153,13 @@ function buildMonthEvents(y, m) {
         const cd = parseD(w.contractEnd);
         if (inMonth(cd)) out.push({ day:cd.getDate(), title:w.n + ' — عقد', type:'عقد عمل', dot:'dot-warn' });
     });
-    appData.pays.forEach(p => { const n = parseDayNumber(p.d); if (n) out.push({ day:Math.min(n, dim), title:p.t + ' — ' + fmtNum(p.a,0) + ' ر', type:'قسط', dot:'dot-danger' }); });
-    appData.checks.forEach(c => { const d = parseD(c.d); if (inMonth(d)) out.push({ day:d.getDate(), title:c.party + ' — ' + fmtNum(c.amount,0), type:'شيك', dot:'dot-danger' }); });
+    appData.pays.forEach(p => { const n = parseDayNumber(p.d); if (n) out.push({ day:Math.min(n, dim), title:p.t, type:'قسط', dot:'dot-danger' }); });
+    appData.checks.forEach(c => { const d = parseD(c.d); if (inMonth(d)) out.push({ day:d.getDate(), title:c.party, type:'شيك', dot:'dot-danger' }); });
     appData.tasks.filter(t => !t.done && t.du).forEach(t => { const d = parseD(t.du); if (inMonth(d)) out.push({ day:d.getDate(), title:t.t, type:'مهمة', dot:'dot-ok' }); });
-    Object.keys(appData.worship).forEach(k => {
-        const d = parseD(k);
-        if (inMonth(d)) {
-            const w = appData.worship[k] || {};
-            if ((w.prayers || []).length >= 3 || w.quran || w.dhikr || w.sadaqah) out.push({ day:d.getDate(), title:'عبادة', type:'سجل عبادة', dot:'dot-soul' });
-        }
-    });
     const hMap = getHolidayMap(y, m);
     Object.keys(hMap).forEach(day => out.push({ day:parseInt(day, 10), title:hMap[day].name, type:'إجازة رسمية', dot:'dot-holiday' }));
     return out.sort((a, b) => a.day - b.day);
 }
-
 function calMove(delta) {
     let m = calState.m + delta, y = calState.y;
     if (m < 0) { m = 11; y--; }
@@ -1838,7 +2168,6 @@ function calMove(delta) {
     renderCalendar();
 }
 function calSelect(day) { calState.selectedDay = calState.selectedDay === day ? null : day; renderCalendar(); }
-
 function renderCalendar() {
     const el = $('cal-container');
     const y = calState.y, m = calState.m;
@@ -1849,7 +2178,6 @@ function renderCalendar() {
     const byDay = {};
     events.forEach(e => { (byDay[e.day] = byDay[e.day] || []).push(e); });
     const hMap = getHolidayMap(y, m);
-
     let html = `<div class="cal-head">
         <button class="mini-btn" onclick="calMove(-1)">‹ السابق</button>
         <span class="cal-month-title">${new Date(y, m, 1).toLocaleDateString(DATE_LOCALE, { month:'long', year:'numeric' })}</span>
@@ -1868,7 +2196,6 @@ function renderCalendar() {
             <span>${d}</span><div class="cal-dots">${dots}</div></div>`;
     }
     html += `</div>`;
-
     let listE = calState.selectedDay ? (byDay[calState.selectedDay] || []) : events;
     const mn = new Date(y, m, 1).toLocaleDateString(DATE_LOCALE, { month:'long' });
     html += `<div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center;">
@@ -1895,30 +2222,29 @@ function renderHolidaysList() {
     const el = $('holidays-list');
     const items = getUpcomingHolidays(6);
     if (!items.length) { el.innerHTML = emptyState('لا توجد إجازات قادمة'); return; }
-    el.innerHTML = items.map(h => `<div class="data-item">
-        <div class="data-item-main">
-            <span class="data-item-title">🎉 ${esc(h.name)}</span>
-            <div class="data-item-sub-row">
-                <span class="data-item-sub">${fmtDate(h.d)}</span>
-                <span class="data-item-sub">${h.days === 0 ? 'اليوم!' : 'بعد ' + h.days + ' يوم'}</span>
+    el.innerHTML = items.map(h => {
+        const label = h.type === 'fiter' ? 'فطر' : h.type === 'adha' ? 'أضحى' : 'رسمي';
+        return `<div class="data-item">
+            <div class="data-item-main">
+                <span class="data-item-title">🎉 ${esc(h.name)}</span>
+                <div class="data-item-sub-row">
+                    <span class="data-item-sub">${fmtDate(h.d)}</span>
+                    <span class="data-item-sub">${h.days === 0 ? 'اليوم!' : 'بعد ' + h.days + ' يوم'}</span>
+                </div>
             </div>
-        </div>
-        <span class="badge badge-info" style="margin:0;">${h.type === 'eid' ? 'عيد' : 'رسمي'}</span>
-    </div>`).join('');
+            <span class="badge badge-info" style="margin:0;">${label}</span>
+        </div>`;
+    }).join('');
 }
 
 /* =========================================================
-   Worship
+   Worship (simplified — no daily prayer tracking)
 ========================================================= */
-const PRAYERS = ['فجر','ظهر','عصر','مغرب','عشاء'];
 function renderWorship() {
     const key = todayKey();
-    const w = appData.worship[key] || { prayers:[], quran:0, dhikr:0, sadaqah:0 };
+    const w = appData.worship[key] || { quran:0, dhikr:0, sadaqah:0 };
     $('worship-today').innerHTML = `
-        <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:6px;">اليوم: ${new Date().toLocaleDateString(DATE_LOCALE, { weekday:'long', day:'numeric', month:'long' })}</div>
-        <div class="worship-prayers">
-            ${PRAYERS.map(p => `<div class="worship-prayer ${w.prayers.includes(p) ? 'on' : ''}" onclick="togglePrayer('${p}')">${p}</div>`).join('')}
-        </div>
+        <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:10px;">اليوم: ${new Date().toLocaleDateString(DATE_LOCALE, { weekday:'long', day:'numeric', month:'long' })}</div>
         <div class="worship-extra">
             <label>📖 صفحات قرآن <input type="number" value="${w.quran || 0}" onchange="setWorship('quran', this.value)"></label>
             <label>📿 تسبيح <input type="number" value="${w.dhikr || 0}" onchange="setWorship('dhikr', this.value)"></label>
@@ -1931,39 +2257,31 @@ function renderWorship() {
     }
     $('worship-list').innerHTML = keys.map(k => {
         const x = appData.worship[k] || {};
-        const pr = (x.prayers || []).length;
         const d = parseD(k);
         const dt = d ? d.toLocaleDateString(DATE_LOCALE, { weekday:'long', day:'numeric', month:'short' }) : k;
+        const hasAny = x.quran || x.dhikr || x.sadaqah;
         return `<div class="data-item">
             <div class="data-item-main">
                 <span class="data-item-title">${dt}</span>
                 <div class="data-item-sub-row">
-                    <span class="data-item-sub">صلاة: ${pr}/5</span>
-                    ${x.quran ? `<span class="data-item-sub">قرآن: ${x.quran} ص</span>` : ''}
-                    ${x.dhikr ? `<span class="data-item-sub">تسبيح: ${x.dhikr}</span>` : ''}
-                    ${x.sadaqah ? `<span class="data-item-sub">صدقة: ${x.sadaqah} ر</span>` : ''}
+                    ${x.quran ? `<span class="data-item-sub">📖 ${x.quran} صفحة</span>` : ''}
+                    ${x.dhikr ? `<span class="data-item-sub">📿 ${x.dhikr}</span>` : ''}
+                    ${x.sadaqah ? `<span class="data-item-sub">🤲 ${x.sadaqah} ر</span>` : ''}
+                    ${!hasAny ? `<span class="data-item-sub" style="opacity:0.5;">— لم يُسجّل —</span>` : ''}
                 </div>
             </div>
         </div>`;
     }).join('');
 }
-function togglePrayer(p) {
-    const key = todayKey();
-    if (!appData.worship[key]) appData.worship[key] = { prayers:[], quran:0, dhikr:0, sadaqah:0 };
-    const w = appData.worship[key];
-    const i = w.prayers.indexOf(p);
-    if (i >= 0) w.prayers.splice(i, 1); else w.prayers.push(p);
-    persist(); renderWorship(); renderCalendar();
-}
 function setWorship(k, v) {
     const key = todayKey();
-    if (!appData.worship[key]) appData.worship[key] = { prayers:[], quran:0, dhikr:0, sadaqah:0 };
+    if (!appData.worship[key]) appData.worship[key] = { quran:0, dhikr:0, sadaqah:0 };
     appData.worship[key][k] = parseFloat(v) || 0;
-    persist(); renderWorship(); renderCalendar();
+    persist(); renderWorship();
 }
 
 /* =========================================================
-   AI Assistant (local)
+   AI Assistant
 ========================================================= */
 function pushAI(role, text) {
     const el = $('ai-chat');
@@ -1980,7 +2298,7 @@ function renderAIHistory() {
     const el = $('ai-chat');
     el.innerHTML = '';
     if (!appData.aiHistory.length) {
-        pushAI('bot', 'أهلاً يا محمد 👋\nاسألني عن أي شي في بياناتك: "كم عامل"، "مهامي"، "المصروفات"، "التنبيهات"، "نطاقي"، "عبادتي".');
+        pushAI('bot', 'أهلاً يا محمد 👋\nاسألني: "كم عامل"، "مهامي"، "المصروفات"، "التنبيهات"، "نطاقي"، "الجزاءات".');
     } else {
         appData.aiHistory.forEach(m => {
             const div = document.createElement('div');
@@ -1997,17 +2315,12 @@ function sendAI() {
     if (!q) return;
     pushAI('user', q);
     inp.value = '';
-    setTimeout(() => {
-        const ans = askAI(q);
-        pushAI('bot', ans);
-    }, 220);
+    setTimeout(() => pushAI('bot', askAI(q)), 220);
 }
 function quickAsk(q) { $('ai-input').value = q; sendAI(); }
 
 function askAI(q) {
-    const original = q;
     q = q.toLowerCase().trim();
-
     const workers = appData.workers.length;
     const openTasks = appData.tasks.filter(t => !t.done);
     const alerts = collectExpiring();
@@ -2017,93 +2330,63 @@ function askAI(q) {
     const paysTotal = appData.pays.reduce((a,c) => a + (c.a||0), 0);
     const net = cashIn - cashOut;
 
-    if (/^(مرحبا|هلا|السلام|سلام)/.test(q)) return 'وعليكم السلام يا محمد 🌿 كيف أساعدك؟';
+    if (/^(مرحبا|هلا|السلام|سلام)/.test(q)) return 'وعليكم السلام يا محمد 🌿';
     if (/شكرا|مشكور|جزاك/.test(q)) return 'العفو، الله يوفقك 🌿';
-    if (/(كم|عدد).*عامل|كم عامل|كم عام/.test(q)) {
+    if (/(كم|عدد).*عامل|كم عامل/.test(q)) {
         if (!workers) return 'ما عندك عمالة مسجلة بعد.';
         const contracts = appData.workers.filter(w => w.contractEnd && daysUntil(w.contractEnd) !== null && daysUntil(w.contractEnd) <= 30).length;
         return `عندك ${workers} عامل.\n${contracts ? '⚠️ ' + contracts + ' عقد قارب ينتهي.' : '✅ لا عقود قاربت تنتهي.'}`;
-    }
-    if (/(وظايف|وظائف|رقم الجوال|ارسال|رسالة|واتس)/.test(q) && workers) {
-        return `عندك ${appData.workers.filter(w=>w.phone).length} عامل عندهم أرقام جوال مسجلة. تقدر ترسل واتس من زر "واتس" في بطاقة العامل.`;
     }
     if (/مهام|مهم/.test(q)) {
         if (!appData.tasks.length) return 'ما عندك مهام بعد.';
         const crit = openTasks.filter(t => t.p === 'قصوى').length;
         const urgent = openTasks.filter(t => t.p === 'عاجلة').length;
-        return `عندك ${openTasks.length} مهمة مفتوحة:\n${crit ? '🔴 قصوى: ' + crit + '\n' : ''}${urgent ? '🟡 عاجلة: ' + urgent + '\n' : ''}من أصل ${appData.tasks.length} مهمة.`;
+        return `عندك ${openTasks.length} مهمة مفتوحة:\n${crit ? '🔴 قصوى: ' + crit + '\n' : ''}${urgent ? '🟡 عاجلة: ' + urgent : ''}`;
     }
     if (/(تنبيه|ينتهي|وثايق|وثائق|تراخيص|رخص)/.test(q)) {
         if (!alerts.length) return '✅ ما فيه تنبيهات حالياً.';
         const top = alerts.slice(0, 5).map(a => `• ${a.type}: ${a.label} (${a.days < 0 ? 'منتهي منذ ' + Math.abs(a.days) + ' ي' : a.days + ' يوم'})`).join('\n');
         return `⚠️ ${alerts.length} تنبيه:\n${top}`;
     }
-    if (/عقد|عقود|انتهاء عقد/.test(q)) {
-        const soon = appData.workers.filter(w => w.contractEnd && daysUntil(w.contractEnd) !== null && daysUntil(w.contractEnd) <= 60);
-        if (!soon.length) return '✅ ما فيه عقود تنتهي خلال 60 يوم.';
-        return `${soon.length} عقد ينتهي خلال 60 يوم:\n` + soon.map(w => `• ${w.n}: ${fmtDate(w.contractEnd)}`).join('\n');
-    }
-    if (/(صرفت|مصروف|مصروفات|صرف)/.test(q)) {
+    if (/(صرفت|مصروف|مصروفات)/.test(q)) {
         if (!cashOut) return 'ما سجّلت مصروفات بعد.';
-        return `إجمالي المصروفات: ${fmtNum(cashOut,0)} ريال (${appData.cashbook.filter(c=>c.type==='out').length} حركة).`;
+        return `إجمالي المصروفات: ${fmtNum(cashOut,0)} ريال.`;
     }
-    if (/(دخل|إيراد|وارد|ربح|مكسب|أرباح)/.test(q)) {
+    if (/(دخل|إيراد|ربح|أرباح)/.test(q)) {
         if (!cashIn && !cashOut) return 'ما سجّلت حركات مالية بعد.';
         const diff = net > 0 ? '📈 ربح' : net < 0 ? '📉 خسارة' : 'متوازن';
         return `الإيرادات: ${fmtNum(cashIn,0)} ر\nالمصروفات: ${fmtNum(cashOut,0)} ر\nالصافي: ${fmtNum(net,0)} ر ${diff}`;
     }
-    if (/اشتراك/.test(q)) return `الاشتراكات الشهرية: ${fmtNum(subsTotal,0)} ريال/شهر (${appData.subs.length} خدمة).`;
-    if (/قسط|أقساط|التزام|مقسط/.test(q)) return `الأقساط الشهرية: ${fmtNum(paysTotal,0)} ريال/شهر (${appData.pays.length} قسط).`;
-    if (/شيك/.test(q)) {
-        if (!appData.checks.length) return 'ما عندك شيكات مسجلة.';
-        const inn = appData.checks.filter(c=>c.type==='in').length;
-        const out = appData.checks.filter(c=>c.type==='out').length;
-        return `${appData.checks.length} شيك (وارد: ${inn}، صادر: ${out}).`;
-    }
+    if (/اشتراك/.test(q)) return `الاشتراكات الشهرية: ${fmtNum(subsTotal,0)} ريال/شهر.`;
+    if (/قسط|أقساط/.test(q)) return `الأقساط الشهرية: ${fmtNum(paysTotal,0)} ريال/شهر.`;
+    if (/شيك/.test(q)) return `عندك ${appData.checks.length} شيك مسجل.`;
     if (/نطاق|سعودة|نطاقات|قوى/.test(q)) {
-        if (!appData.nitaqat.length) return 'ما سجّلت أي سجل في نطاقات. أضف من تبويب "العمل".';
+        if (!appData.nitaqat.length) return 'ما سجّلت أي سجل في نطاقات.';
         const n = appData.nitaqat[0];
         const total = (n.sc||0) + (n.sn||0) + (n.fc||0) + (n.fn||0);
         const ratio = total ? Math.round(((n.sc||0) / total) * 100) : 0;
-        return `سجل "${n.entity}":\n📊 النطاق: ${n.level}\n🇸🇦 السعوديون: ${(n.sc||0)+(n.sn||0)}\n🌍 الأجانب: ${(n.fc||0)+(n.fn||0)}\nنسبة السعودة: ${ratio}%`;
+        return `سجل "${n.entity}":\n📊 النطاق: ${n.level}\nنسبة السعودة: ${ratio}%`;
     }
-    if (/صلاة|صليت|عبادة|قرآن|ورد|تسبيح|صدقة/.test(q)) {
-        const k = todayKey();
-        const w = appData.worship[k] || {};
-        const pr = (w.prayers||[]).length;
-        return `اليوم:\n🕌 صليت ${pr}/5\n${w.quran ? `📖 قرآن: ${w.quran} صفحة\n` : ''}${w.dhikr ? `📿 تسبيح: ${w.dhikr}\n` : ''}${w.sadaqah ? `🤲 صدقة: ${w.sadaqah} ر\n` : ''}${pr < 5 ? 'لا تنسَ الباقي 🌿' : 'ما شاء الله، كملتها 🌟'}`;
+    if (/جزاء|جزاءات|مخالفة|مخالفات/.test(q)) {
+        if (!appData.violations.length) return 'ما عندك جزاءات مسجلة.';
+        const pending = appData.violations.filter(v => v.status !== 'تم الاستقطاع').length;
+        return `عندك ${appData.violations.length} جزاء (${pending} لم يُستقطع).`;
     }
-    if (/مقابلة|مقابلات|توظيف|مرشح/.test(q)) {
-        if (!appData.interviews.length) return 'ما عندك مقابلات مسجلة.';
-        const accepted = appData.interviews.filter(i => i.decision === 'مقبول').length;
-        const pending = appData.interviews.filter(i => i.decision === 'معلّق').length;
-        return `${appData.interviews.length} مقابلة (مقبول: ${accepted}، معلّق: ${pending}).`;
-    }
-    if (/إجازة|إجازات|عيد|اعياد|رمضان/.test(q)) {
+    if (/خطاب|خطابات/.test(q)) return `عندك ${appData.letters.length} خطاب محفوظ.`;
+    if (/ملف|ملفات/.test(q)) return `عندك ${appData.empFiles.length} ملف مرفق للموظفين.`;
+    if (/إجازة|إجازات|عيد/.test(q)) {
         const up = getUpcomingHolidays(3);
         if (!up.length) return 'لا توجد إجازات قادمة.';
         return `الإجازات القادمة:\n` + up.map(h => `🎉 ${h.name} — بعد ${h.days} يوم`).join('\n');
     }
-    if (/نصيحة|نصائح|اسوي|سوي/.test(q)) {
-        const tips = [];
-        if (alerts.filter(a => a.days < 0).length) tips.push('راجع الوثائق المنتهية فوراً');
-        if (openTasks.filter(t => t.p === 'قصوى').length) tips.push('ابدأ بالمهام ذات الأولوية القصوى');
-        if (!appData.lastBackup || Date.now() - appData.lastBackup > 30 * 86400000) tips.push('اعمل نسخة احتياطية');
-        if (!tips.length) tips.push('كل شي تحت السيطرة، استمر 👌');
-        return 'اقتراحاتي:\n• ' + tips.join('\n• ');
+    if (/(ملخص|الوضع|تقرير)/.test(q)) {
+        return `📊 ملخص:\n👥 عمالة: ${workers}\n📋 مهام: ${openTasks.length}\n⚠️ تنبيهات: ${alerts.length}\n💰 صافي: ${fmtNum(net,0)} ر`;
     }
-    if (/كم|عدد|اجمالي/.test(q)) return 'حدّد: عامل، مهام، مصروفات، إيرادات، تراخيص، شيكات؟';
-    if (/(ملخص|الوضع|وضعي|تقرير)/.test(q)) {
-        return `📊 ملخص سريع:\n👥 عمالة: ${workers}\n📋 مهام مفتوحة: ${openTasks.length}\n⚠️ تنبيهات: ${alerts.length}\n💰 صافي رصيد: ${fmtNum(net,0)} ر`;
+    if (/عبادة|قرآن|ورد|صدقة/.test(q)) {
+        const w = appData.worship[todayKey()] || {};
+        return `اليوم:\n${w.quran ? `📖 قرآن: ${w.quran} صفحة\n` : ''}${w.dhikr ? `📿 تسبيح: ${w.dhikr}\n` : ''}${w.sadaqah ? `🤲 صدقة: ${w.sadaqah} ر` : ''}`;
     }
-    if (/(جوال|هاتف|رقم)/.test(q) && workers) {
-        return `أرقام الجوال المسجلة:\n` + appData.workers.filter(w=>w.phone).slice(0,5).map(w=>`• ${w.n}: ${w.phone}`).join('\n');
-    }
-    if (/(ملاحظ|فكرة|مفكرة)/.test(q)) return `المفكرة فيها ${appData.notes.length} ملاحظة.`;
-    if (/(عائلة|أهل|زوج|ولد)/.test(q)) return `عندك ${appData.family.length} من العائلة مسجلين.`;
-    if (/(صحة|تحليل|دواء|دكتور)/.test(q)) return `عندك ${appData.health.length} سجل صحي.`;
-
-    return 'لم أفهم سؤالك 🤔\nجرّب:\n• "كم عامل"\n• "مهامي"\n• "المصروفات"\n• "التنبيهات"\n• "نطاقي"\n• "عبادتي"\n• "الإجازات"';
+    return 'جرّب: "كم عامل"، "مهامي"، "المصروفات"، "التنبيهات"، "نطاقي"، "الجزاءات"، "الإجازات".';
 }
 
 /* =========================================================
@@ -2122,30 +2405,6 @@ function calcVAT() {
     $('vat-tax').textContent = fmtNum(v * 0.15);
     $('vat-tot').textContent = fmtNum(v * 1.15);
 }
-function calcLabor() {
-    const s = numVal('lc-salary'), c = numVal('lc-count'), g = numVal('lc-gosi');
-    const mE = numVal('lc-monthly'), aE = numVal('lc-annual');
-    const sals = s * c;
-    const gosi = sals * g / 100;
-    const annualM = (aE * c) / 12;
-    const extra = mE * c;
-    const totM = sals + gosi + annualM + extra;
-    const row = (l, v) => `<div class="data-item"><div class="data-item-main"><span class="data-item-title" style="font-weight:500;">${l}</span></div><span style="font-weight:800;font-variant-numeric:tabular-nums;">${fmtNum(v)}</span></div>`;
-    $('lc-res').innerHTML = `
-        <div class="data-list" style="margin-top:12px;">
-            ${row('إجمالي الرواتب', sals)}
-            ${row('التأمينات (' + g + '%)', gosi)}
-            ${row('الرسوم السنوية ÷ 12', annualM)}
-            ${row('رسوم شهرية إضافية', extra)}
-        </div>
-        <div class="stat-item full-width" style="margin-top:10px;">
-            <span class="stat-label">الإجمالي الشهري</span>
-            <span class="stat-value">${fmtNum(totM)} ريال</span>
-        </div>
-        <div style="text-align:center;margin-top:8px;font-size:0.75rem;color:var(--text-muted);">
-            السنوي: <b style="color:var(--text);">${fmtNum(totM * 12)}</b> • للعامل: <b style="color:var(--text);">${fmtNum(c ? totM / c : 0)}</b>
-        </div>`;
-}
 function calcZakat() {
     const cash = numVal('zk-cash'), gold = numVal('zk-gold'), stocks = numVal('zk-stocks'), stock = numVal('zk-stock'), debt = numVal('zk-debt');
     const total = cash + gold + stocks + stock;
@@ -2161,24 +2420,101 @@ function calcZakat() {
         <div class="stat-item full-width" style="margin-top:10px;">
             <span class="stat-label">الزكاة الواجبة (2.5%)</span>
             <span class="stat-value" style="color:${zakat > 0 ? 'var(--positive)' : 'var(--text-muted)'};">${fmtNum(zakat)} ريال</span>
-        </div>
-        ${zakat === 0 ? '<p style="font-size:0.72rem;color:var(--text-muted);text-align:center;margin-top:8px;">لم تبلغ النصاب — النصاب تقديري، راجع أهل العلم.</p>' : ''}`;
+        </div>`;
 }
-const LETTERS = {
-    "1": "السلام عليكم ورحمة الله وبركاته،،\nأعتذر عن عدم تمكني من حضور الاجتماع لظروف طارئة، ونأمل الإفادة بأبرز ما تم مناقشته.\nمع خالص التقدير.",
-    "2": "السلام عليكم ورحمة الله وبركاته،،\nأود الإحاطة بوجود تأخير بسيط في تسليم المهمة المكلف بها، وجاري إنهاؤها في أقرب وقت.\nمع خالص التقدير.",
-    "3": "السلام عليكم ورحمة الله وبركاته،،\nأرجو التكرم بالموافقة على طلب الاستئذان لظروف خاصة طارئة، مع تعهدي بإنجاز ما يلزم.\nمع خالص الشكر والتقدير.",
-    "4": "السلام عليكم ورحمة الله وبركاته،،\nأتقدم بجزيل الشكر والتقدير على الجهود المبذولة والتعاون المستمر.\nمع خالص التقدير.",
-    "5": "السلام عليكم ورحمة الله وبركاته،،\nأتقدم بطلب تمديد مهلة تسليم المهمة لظروف خارجة عن الإرادة، مع الحرص على إنجازها بأعلى جودة.\nمع خالص الشكر.",
-    "6": "السلام عليكم ورحمة الله وبركاته،،\nنفيدكم بضرورة الالتزام بالأنظمة والتعليمات، ونأمل سرعة تصحيح الوضع لتجنّب أي إجراءات نظامية.\nمع التقدير.",
-    "7": "السلام عليكم ورحمة الله وبركاته،،\nأقرّ أنا الموقّع أدناه باستلامي كامل مستحقاتي المالية والعينية، وأبرئ ذمة المنشأة إبراءً تاماً.\nمع التقدير."
-};
-function genLetter() { $('let-out').value = LETTERS[$('let-type').value] || ''; }
-function copyLetter() {
-    const ta = $('let-out');
-    if (!ta.value) { toast('ولّد النص أولاً', 'warn'); return; }
-    if (navigator.clipboard) navigator.clipboard.writeText(ta.value).then(() => toast('تم النسخ')).catch(() => toast('تعذر', 'danger'));
-    else { ta.select(); document.execCommand('copy'); toast('تم النسخ'); }
+function calcSalaryDeduct() {
+    const salary = numVal('dc-salary');
+    const days = numVal('dc-days') || 30;
+    const hours = numVal('dc-hours');
+    const mins = numVal('dc-mins');
+    const absDays = numVal('dc-absdays');
+    const extra = numVal('dc-extra');
+    const mode = $('dc-mode').value;
+
+    let rate = numVal('dc-rate');
+    if (!rate) rate = salary / (days * 8);
+    const dailyWage = salary / days;
+    const totalMins = hours * 60 + mins;
+    const minRate = rate / 60;
+
+    let delayDeduction = 0;
+    if (mode === 'min-min') delayDeduction = totalMins * minRate;
+    else if (mode === 'min-two') delayDeduction = totalMins * minRate * 2;
+    else if (mode === 'day-day') delayDeduction = (totalMins / 480) * dailyWage;
+    else if (mode === 'day-two') delayDeduction = (totalMins / 480) * dailyWage * 2;
+
+    let absenceDeduction = 0;
+    if (mode === 'day-day' || mode === 'min-min') absenceDeduction = absDays * dailyWage;
+    else if (mode === 'day-two' || mode === 'min-two') absenceDeduction = absDays * dailyWage * 2;
+
+    const totalDeduction = delayDeduction + absenceDeduction + extra;
+    const netSalary = salary - totalDeduction;
+
+    $('dc-result').innerHTML = `
+        <div class="data-list">
+            <div class="data-item"><div class="data-item-main"><span class="data-item-title">أجر اليوم</span></div><span style="font-weight:800;">${fmtNum(dailyWage)} ر</span></div>
+            <div class="data-item"><div class="data-item-main"><span class="data-item-title">أجر الساعة</span></div><span style="font-weight:800;">${fmtNum(rate)} ر</span></div>
+            <div class="data-item"><div class="data-item-main"><span class="data-item-title">خصم التأخير (${totalMins} دقيقة)</span></div><span style="font-weight:800;color:var(--danger);">${fmtNum(delayDeduction)} ر</span></div>
+            ${absDays ? `<div class="data-item"><div class="data-item-main"><span class="data-item-title">خصم الغياب (${absDays} يوم)</span></div><span style="font-weight:800;color:var(--danger);">${fmtNum(absenceDeduction)} ر</span></div>` : ''}
+            ${extra ? `<div class="data-item"><div class="data-item-main"><span class="data-item-title">خصم آخر</span></div><span style="font-weight:800;color:var(--danger);">${fmtNum(extra)} ر</span></div>` : ''}
+        </div>
+        <div class="stat-item full-width" style="margin-top:10px;">
+            <span class="stat-label">إجمالي الخصم</span>
+            <span class="stat-value" style="color:var(--danger);">${fmtNum(totalDeduction)} ريال</span>
+        </div>
+        <div class="stat-item full-width" style="margin-top:6px;">
+            <span class="stat-label">الصافي بعد الخصم</span>
+            <span class="stat-value" style="color:var(--positive);">${fmtNum(netSalary)} ريال</span>
+        </div>`;
+}
+
+/* =========================================================
+   Date Converter
+========================================================= */
+function convertFromGreg() {
+    const v = $('cv-greg').value;
+    if (!v) { $('cv-hijri').value = ''; $('cv-result').textContent = ''; return; }
+    try {
+        const d = new Date(v);
+        const parts = new Intl.DateTimeFormat('en-u-ca-islamic-nu-latn', { day:'2-digit', month:'2-digit', year:'numeric' }).formatToParts(d);
+        const y = parts.find(p => p.type === 'year').value;
+        const m = parts.find(p => p.type === 'month').value;
+        const day = parts.find(p => p.type === 'day').value;
+        const hj = `${y}-${m}-${day}`;
+        $('cv-hijri').value = hj;
+        const hijriName = new Intl.DateTimeFormat('ar-SA-u-ca-islamic', { day:'numeric', month:'long', year:'numeric' }).format(d);
+        $('cv-result').textContent = `🌙 ${hijriName}`;
+    } catch(e) { $('cv-result').textContent = 'تعذّر التحويل'; }
+}
+function convertFromHijri() {
+    const v = $('cv-hijri').value.trim();
+    if (!v || !/^\d{4}-\d{1,2}-\d{1,2}$/.test(v)) { $('cv-result').textContent = ''; return; }
+    try {
+        const [y, m, d] = v.split('-').map(Number);
+        // استخدام تقويم أم القرى عبر Intl
+        const fmt = new Intl.DateTimeFormat('en-u-ca-islamic-nu-latn', { day:'numeric', month:'numeric', year:'numeric' });
+        // نحاول من خلال البحث: نمر على أيام ميلادية قريبة
+        const approxGreg = new Date(y - 579, m - 1, d); // تقدير أولي
+        let best = null, bestDiff = 999;
+        for (let delta = -400; delta <= 400; delta++) {
+            const test = new Date(approxGreg);
+            test.setDate(test.getDate() + delta);
+            const p = fmt.formatToParts(test);
+            const ty = parseInt(p.find(x => x.type === 'year').value, 10);
+            const tm = parseInt(p.find(x => x.type === 'month').value, 10);
+            const td = parseInt(p.find(x => x.type === 'day').value, 10);
+            const diff = Math.abs(ty - y) * 400 + Math.abs(tm - m) * 30 + Math.abs(td - d);
+            if (diff < bestDiff) { bestDiff = diff; best = test; }
+            if (diff === 0) break;
+        }
+        if (best && bestDiff < 100) {
+            $('cv-greg').value = toDateStr(best);
+            const gregName = best.toLocaleDateString(DATE_LOCALE, { day:'numeric', month:'long', year:'numeric', weekday:'long' });
+            $('cv-result').textContent = `📅 ${gregName}`;
+        } else {
+            $('cv-result').textContent = 'تعذّر التحويل بدقة';
+        }
+    } catch(e) { $('cv-result').textContent = 'خطأ في الصيغة (استخدم YYYY-MM-DD)'; }
 }
 
 /* =========================================================
@@ -2243,7 +2579,7 @@ function importData(e) {
             const keep = appData.password;
             appData = normalize(obj);
             if (!appData.password) appData.password = keep;
-            persist(); renderAll(); applySettingsUI(); renderAIHistory();
+            persist(); renderAll(); applySettingsUI(); renderAIHistory(); refreshEmployeeSelects();
             toast('تم الاستيراد ✅');
         } catch(e) { toast('ملف غير صالح', 'danger'); }
     };
@@ -2318,7 +2654,7 @@ async function checkHashImport() {
             const keep = appData.password;
             appData = normalize(obj);
             if (!appData.password) appData.password = keep;
-            persist(); renderAll(); applySettingsUI(); renderAIHistory();
+            persist(); renderAll(); applySettingsUI(); renderAIHistory(); refreshEmployeeSelects();
             toast('تم الاستيراد ✅');
         }
         history.replaceState(null, '', location.pathname + location.search);
@@ -2389,9 +2725,10 @@ function applySettingsUI() {
    Render all
 ========================================================= */
 function renderAll() {
-    ['licenses','workers','tasks','subs','pays','notes','cashbook','checks','gratitude','reflections','decisions','family','health','nitaqat','interviews'].forEach(renderCategory);
+    ['licenses','workers','tasks','subs','pays','notes','cashbook','checks','gratitude','reflections','decisions','family','health','nitaqat','interviews','empFiles','violations','letters'].forEach(renderCategory);
     renderWorship(); renderExpenseAnalysis(); renderInterviewQuestions();
-    calcLabor(); calcZakat();
+    refreshEmployeeSelects();
+    calcLabor(); calcZakat(); calcSalaryDeduct();
 }
 
 /* =========================================================
@@ -2405,7 +2742,6 @@ function init() {
     updateClock();
     setInterval(updateClock, 60000);
 
-    // PWA manifest
     try {
         const manifest = {
             name: 'منظومة محمد الشاملة',
