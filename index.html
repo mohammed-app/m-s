@@ -7,10 +7,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="HR منظومة">
-<title>منظومة HR — V13.0</title>
+<title>منظومة HR — V14.0 (سحابي)</title>
 <link rel="manifest" id="app-manifest">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{--bg:#0d1524;--surface:#14202f;--surface-2:#1b2a3d;--accent:#c9a24b;--accent-soft:rgba(201,162,75,0.15);--brand:#1a2b4a;--brand-soft:rgba(26,43,74,0.4);--positive:#3fa87a;--positive-soft:rgba(63,168,122,0.14);--danger:#d9615c;--danger-soft:rgba(217,97,92,0.14);--warn:#d9a441;--warn-soft:rgba(217,164,65,0.14);--soul:#9b6fc4;--soul-soft:rgba(155,111,196,0.14);--info:#4a9bd9;--info-soft:rgba(74,155,217,0.14);--holiday:#e07b9a;--holiday-soft:rgba(224,123,154,0.14);--text:#eef1f6;--text-muted:#8b93a7;--border:#243349;--radius-lg:18px;--radius-md:12px;--radius-sm:8px}
 [data-theme="light"]{--bg:#f5f2ea;--surface:#fff;--surface-2:#f1ede1;--accent:#a3781e;--accent-soft:rgba(163,120,30,0.1);--brand:#1a2b4a;--brand-soft:rgba(26,43,74,0.1);--positive:#2f8f5f;--positive-soft:rgba(47,143,95,0.1);--danger:#b3403c;--danger-soft:rgba(179,64,60,0.1);--warn:#b3801e;--warn-soft:rgba(179,128,30,0.1);--soul:#7145a1;--soul-soft:rgba(113,69,161,0.1);--info:#2c6f9c;--info-soft:rgba(44,111,156,0.1);--holiday:#b8526f;--holiday-soft:rgba(184,82,111,0.1);--text:#1c2130;--text-muted:#6b7280;--border:#e4ddc9}
@@ -39,6 +40,11 @@ body{color:var(--text);padding:12px;padding-top:calc(12px + env(safe-area-inset-
 .controls-btn{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;max-width:150px;flex-shrink:0}
 .icon-btn{background:var(--surface-2);border:1px solid var(--border);color:var(--text);width:30px;height:30px;border-radius:var(--radius-sm);cursor:pointer;font-size:.82rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .icon-btn:active{transform:scale(0.92)}
+.cloud-status{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--text-muted);margin-right:4px;vertical-align:middle}
+.cloud-status.on{background:var(--positive);box-shadow:0 0 6px var(--positive)}
+.cloud-status.off{background:var(--danger)}
+.cloud-status.syncing{background:var(--warn);animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
 .alert-strip-title{font-size:.75rem;color:var(--text-muted);margin-bottom:6px;padding:0 2px}
 .alert-strip{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;margin-bottom:12px}
 .alert-strip::-webkit-scrollbar{display:none}
@@ -183,123 +189,53 @@ textarea{resize:vertical}
 .q-chip.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:700}
 .work-section{display:none}
 .work-section.active{display:block}
-
-/* ============ وضع الكمبيوتر (Desktop Mode) ============ */
-.desktop-sidebar { display: none; }
-
-@media (min-width: 1024px) {
-    body {
-        max-width: none;
-        margin: 0;
-        padding: 20px;
-        padding-right: calc(260px + 20px);
-    }
-    body > *:not(#login-screen):not(#search-screen):not(#toast):not(.desktop-sidebar):not(.bottom-nav) {
-        max-width: 1100px;
-        margin-left: auto !important;
-        margin-right: auto !important;
-    }
-    .bottom-nav { display: none !important; }
-
-    .desktop-sidebar {
-        display: flex;
-        position: fixed;
-        top: 0; right: 0; bottom: 0;
-        width: 260px;
-        background: var(--surface);
-        border-left: 1px solid var(--border);
-        flex-direction: column;
-        padding: 20px 16px;
-        z-index: 800;
-        overflow-y: auto;
-    }
-    .sidebar-logo { width: 72px; height: 72px; margin: 0 auto 10px; }
-    .sidebar-title { text-align: center; font-weight: 800; font-size: 0.95rem; margin-bottom: 4px; }
-    .sidebar-subtitle { text-align: center; font-size: 0.68rem; color: var(--text-muted); margin-bottom: 24px; }
-    .sidebar-nav { flex: 1; display: flex; flex-direction: column; gap: 6px; }
-    .sidebar-btn {
-        background: transparent;
-        border: 1px solid transparent;
-        color: var(--text-muted);
-        padding: 12px 14px;
-        border-radius: var(--radius-md);
-        cursor: pointer;
-        font-size: 0.85rem;
-        font-weight: 700;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        text-align: right;
-        font-family: inherit;
-        width: 100%;
-    }
-    .sidebar-btn:hover { background: var(--surface-2); color: var(--text); }
-    .sidebar-btn.active { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
-    .sidebar-btn .sb-icon { font-size: 1.15rem; width: 24px; text-align: center; }
-    .sidebar-footer { display: flex; flex-direction: column; gap: 6px; padding-top: 12px; border-top: 1px solid var(--border); }
-
-    .stats-grid { grid-template-columns: repeat(4, 1fr); }
-    .stat-item.full-width { grid-column: span 4; }
-
-    .tab-content.active {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr;
-        gap: 14px;
-    }
-    .tab-content > .section-card,
-    .tab-content > .summary-card { margin-bottom: 0 !important; }
-    .tab-content > .tabs-sub { grid-column: 1 / -1; }
-    .tab-content > .work-section { grid-column: 1 / -1; }
-
-    .work-section.active {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr;
-        gap: 14px;
-    }
-    .work-section > .section-card { margin-bottom: 0 !important; }
-    #ws-reports.active { display: block !important; }
-
-    #tab-home > .section-card:nth-child(3),
-    #tab-home > .section-card:nth-child(4),
-    #tab-home > .section-card:nth-child(5) {
-        grid-column: 1 / -1;
-    }
-
-    .overlay-inner { max-width: 900px; }
+.sync-info-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:10px 12px;font-size:.75rem;line-height:1.7;color:var(--text-muted);margin-bottom:10px}
+.sync-info-box b{color:var(--text)}
+.desktop-sidebar{display:none}
+@media (min-width: 1024px){
+    body{max-width:none;margin:0;padding:20px;padding-right:calc(260px + 20px)}
+    body > *:not(#login-screen):not(#search-screen):not(#toast):not(.desktop-sidebar):not(.bottom-nav){max-width:1100px;margin-left:auto !important;margin-right:auto !important}
+    .bottom-nav{display:none !important}
+    .desktop-sidebar{display:flex;position:fixed;top:0;right:0;bottom:0;width:260px;background:var(--surface);border-left:1px solid var(--border);flex-direction:column;padding:20px 16px;z-index:800;overflow-y:auto}
+    .sidebar-logo{width:72px;height:72px;margin:0 auto 10px}
+    .sidebar-title{text-align:center;font-weight:800;font-size:0.95rem;margin-bottom:4px}
+    .sidebar-subtitle{text-align:center;font-size:0.68rem;color:var(--text-muted);margin-bottom:24px}
+    .sidebar-nav{flex:1;display:flex;flex-direction:column;gap:6px}
+    .sidebar-btn{background:transparent;border:1px solid transparent;color:var(--text-muted);padding:12px 14px;border-radius:var(--radius-md);cursor:pointer;font-size:0.85rem;font-weight:700;display:flex;align-items:center;gap:12px;text-align:right;font-family:inherit;width:100%}
+    .sidebar-btn:hover{background:var(--surface-2);color:var(--text)}
+    .sidebar-btn.active{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+    .sidebar-btn .sb-icon{font-size:1.15rem;width:24px;text-align:center}
+    .sidebar-footer{display:flex;flex-direction:column;gap:6px;padding-top:12px;border-top:1px solid var(--border)}
+    .stats-grid{grid-template-columns:repeat(4, 1fr)}
+    .stat-item.full-width{grid-column:span 4}
+    .tab-content.active{display:grid !important;grid-template-columns:1fr 1fr;gap:14px}
+    .tab-content > .section-card,.tab-content > .summary-card{margin-bottom:0 !important}
+    .tab-content > .tabs-sub{grid-column:1 / -1}
+    .tab-content > .work-section{grid-column:1 / -1}
+    .work-section.active{display:grid !important;grid-template-columns:1fr 1fr;gap:14px}
+    .work-section > .section-card{margin-bottom:0 !important}
+    #ws-reports.active{display:block !important}
+    #tab-home > .section-card:nth-child(3),#tab-home > .section-card:nth-child(4),#tab-home > .section-card:nth-child(5){grid-column:1 / -1}
+    .overlay-inner{max-width:900px}
 }
 </style>
 </head>
 <body>
 
-<!-- 🖥️ Desktop Sidebar (يظهر فقط على الكمبيوتر) -->
 <aside class="desktop-sidebar">
     <div class="sidebar-logo" id="sidebar-logo"></div>
     <div class="sidebar-title">منظومة HR</div>
     <div class="sidebar-subtitle">إدارة الموارد البشرية</div>
     <div class="sidebar-nav">
-        <button class="sidebar-btn active" data-tab="tab-home" onclick="sidebarNav('tab-home')">
-            <span class="sb-icon">🏠</span><span>الرئيسية</span>
-        </button>
-        <button class="sidebar-btn" data-tab="tab-work" onclick="sidebarNav('tab-work')">
-            <span class="sb-icon">💼</span><span>العمل</span>
-        </button>
-        <button class="sidebar-btn" data-tab="tab-personal" onclick="sidebarNav('tab-personal')">
-            <span class="sb-icon">👤</span><span>الشخصي</span>
-        </button>
-        <button class="sidebar-btn" data-tab="tab-finance" onclick="sidebarNav('tab-finance')">
-            <span class="sb-icon">💰</span><span>المال</span>
-        </button>
-        <button class="sidebar-btn" data-tab="tab-soul" onclick="sidebarNav('tab-soul')">
-            <span class="sb-icon">🌿</span><span>الروح</span>
-        </button>
+        <button class="sidebar-btn active" data-tab="tab-home" onclick="sidebarNav('tab-home')"><span class="sb-icon">🏠</span><span>الرئيسية</span></button>
+        <button class="sidebar-btn" data-tab="tab-work" onclick="sidebarNav('tab-work')"><span class="sb-icon">💼</span><span>العمل</span></button>
+        <button class="sidebar-btn" data-tab="tab-personal" onclick="sidebarNav('tab-personal')"><span class="sb-icon">👤</span><span>الشخصي</span></button>
+        <button class="sidebar-btn" data-tab="tab-finance" onclick="sidebarNav('tab-finance')"><span class="sb-icon">💰</span><span>المال</span></button>
+        <button class="sidebar-btn" data-tab="tab-soul" onclick="sidebarNav('tab-soul')"><span class="sb-icon">🌿</span><span>الروح</span></button>
     </div>
     <div class="sidebar-footer">
-        <button class="sidebar-btn" onclick="goToTab('tab-settings')">
-            <span class="sb-icon">⚙️</span><span>الإعدادات</span>
-        </button>
-        <button class="sidebar-btn" onclick="logout()">
-            <span class="sb-icon">🔒</span><span>تسجيل الخروج</span>
-        </button>
+        <button class="sidebar-btn" onclick="goToTab('tab-settings')"><span class="sb-icon">⚙️</span><span>الإعدادات</span></button>
+        <button class="sidebar-btn" onclick="logout()"><span class="sb-icon">🔒</span><span>تسجيل الخروج</span></button>
     </div>
 </aside>
 
@@ -307,7 +243,7 @@ textarea{resize:vertical}
     <div class="login-box">
         <div class="hr-logo" id="login-logo"></div>
         <h2>منظومة إدارة الموارد البشرية</h2>
-        <p class="sub">الإصدار V13.0</p>
+        <p class="sub">الإصدار V14.0 — سحابي</p>
         <div class="form-group" style="text-align:right;">
             <label>رمز الدخول</label>
             <input type="password" id="pass-input" onkeydown="if(event.key==='Enter') checkPassword()" placeholder="أدخل كلمة المرور">
@@ -333,6 +269,7 @@ textarea{resize:vertical}
             <h2 id="greeting-text">أهلاً بك</h2>
             <span class="date-line" id="date-greg">—</span>
             <span class="date-line" id="date-hijri">—</span>
+            <span class="date-line"><span class="cloud-status" id="cloud-dot"></span><span id="cloud-status-text">غير متصل</span></span>
         </div>
     </div>
     <div class="controls-btn">
@@ -759,6 +696,14 @@ textarea{resize:vertical}
 
 <div id="tab-settings" class="tab-content">
     <div class="section-card brand-card">
+        <div class="section-title">☁️ المزامنة السحابية</div>
+        <div class="sync-info-box" id="cloud-info-box">جاري الفحص...</div>
+        <div class="btn-row">
+            <button class="btn btn-info" onclick="forceCloudSync()">🔄 مزامنة الآن</button>
+        </div>
+    </div>
+
+    <div class="section-card brand-card">
         <div class="section-title">🎨 المظهر والهوية</div>
         <p style="font-size:.75rem;color:var(--text-muted);margin-bottom:8px;">اختر النمط:</p>
         <div class="theme-picker">
@@ -783,7 +728,7 @@ textarea{resize:vertical}
         <label class="mini-toggle"><input type="checkbox" id="notify-chk" onchange="toggleNotifications(this.checked)"> إشعارات المتصفح</label>
     </div>
     <div class="section-card">
-        <div class="section-title">💾 النسخ الاحتياطي</div>
+        <div class="section-title">💾 النسخ الاحتياطي (ملف)</div>
         <div class="btn-row">
             <button class="btn btn-accent" onclick="exportData()">⬇️ تصدير</button>
             <button class="btn btn-ghost" onclick="document.getElementById('import-file').click()">⬆️ استيراد</button>
@@ -792,7 +737,7 @@ textarea{resize:vertical}
         <p id="last-backup-txt" style="font-size:.7rem;color:var(--text-muted);margin-top:10px;"></p>
     </div>
     <div class="section-card">
-        <div class="section-title">🔗 نقل البيانات</div>
+        <div class="section-title">🔗 نقل البيانات (رابط / QR)</div>
         <button class="btn btn-accent btn-full" onclick="generateBackupLink()">توليد رابط + QR</button>
         <div id="backup-link-out" style="display:none;margin-top:10px;">
             <textarea id="backup-link-text" rows="3" readonly style="font-size:.66rem;direction:ltr;text-align:left;"></textarea>
@@ -822,6 +767,17 @@ textarea{resize:vertical}
 </div>
 
 <script>
+/* =========================================================
+   ☁️ إعدادات Supabase — معبّأة جاهزة
+========================================================= */
+const SUPABASE_URL = 'https://lcmhqvichzhjxzliupj.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_sFO5Juo4JbPg_mySO5dWVw_-vl5jF7m';
+const CLOUD_USER_ID = 'hr_mohammed_main';
+
+let supabaseClient = null;
+let cloudSyncEnabled = false;
+let cloudSyncInProgress = false;
+
 const STORAGE_KEY='m_system_v12';
 const OLD_KEYS=['m_system_v11','m_system_v10','m_system_v9','m_system_v7','m_system_v6'];
 const DATE_LOCALE='ar-SA-u-ca-gregory-nu-latn';
@@ -841,7 +797,7 @@ const DEFAULT_WA_TEMPLATES=[
 ];
 
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
-function defaultData(){return{password:'1234',branches:[],workers:[],vacations:[],promotions:[],requests:[],evaluations:[],onoff:[],interviews:[],waTemplates:[...DEFAULT_WA_TEMPLATES],tasks:[],subs:[],pays:[],notes:[],cashbook:[],gratitude:[],worship:{},activity:[],settings:{autolock:5,notifyEnabled:false,theme:'dark'},lastBackup:null};}
+function defaultData(){return{password:'1234',branches:[],workers:[],vacations:[],promotions:[],requests:[],evaluations:[],onoff:[],interviews:[],waTemplates:[...DEFAULT_WA_TEMPLATES],tasks:[],subs:[],pays:[],notes:[],cashbook:[],gratitude:[],worship:{},activity:[],settings:{autolock:5,notifyEnabled:false,theme:'dark'},lastBackup:null,lastSync:null};}
 function normalize(d){
     const b=defaultData();const s=d||{};const out=Object.assign(b,s);
     out.settings=Object.assign({autolock:5,notifyEnabled:false,theme:'dark'},s.settings||{});
@@ -940,6 +896,124 @@ function getUpcomingHolidays(n){const now=new Date();now.setHours(0,0,0,0);const
 
 function logAct(cat,act,txt){appData.activity.unshift({ts:Date.now(),cat,act,txt:String(txt||'').slice(0,80)});if(appData.activity.length>500)appData.activity.length=500;}
 
+/* =========================================================
+   ☁️ Cloud Sync
+========================================================= */
+function updateCloudStatus(status){
+    const dot=$('cloud-dot');const txt=$('cloud-status-text');
+    if(!dot||!txt)return;
+    dot.className='cloud-status '+status;
+    const texts={'on':'متزامن ✓','off':'غير متصل','syncing':'جاري المزامنة...'};
+    txt.textContent=texts[status]||'غير معروف';
+}
+
+async function initCloudSync(){
+    if(!SUPABASE_URL||!SUPABASE_ANON_KEY||!SUPABASE_URL.startsWith('http')){
+        console.log('ℹ️ المزامنة السحابية غير مهيأة');
+        updateCloudStatus('off');updateCloudInfoBox();return false;
+    }
+    if(typeof supabase==='undefined'||!supabase.createClient){
+        console.warn('⚠️ مكتبة Supabase لم تُحمّل');
+        updateCloudStatus('off');return false;
+    }
+    try{
+        updateCloudStatus('syncing');
+        supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+
+        const {data,error}=await supabaseClient
+            .from('app_data')
+            .select('data, updated_at')
+            .eq('id',CLOUD_USER_ID)
+            .maybeSingle();
+
+        if(error){
+            console.warn('خطأ جلب البيانات:',error.message);
+            cloudSyncEnabled=true;updateCloudStatus('on');updateCloudInfoBox();
+            return true;
+        }
+
+        if(data&&data.data){
+            const cloudData=normalize(data.data);
+            const localBackup=appData.lastBackup||0;
+            const cloudBackup=cloudData.lastBackup||0;
+            const cloudSize=JSON.stringify(cloudData).length;
+            const localSize=JSON.stringify(appData).length;
+            const useCloud=cloudBackup>localBackup||(cloudBackup===localBackup&&cloudSize>localSize);
+
+            if(useCloud){
+                appData=cloudData;
+                localStorage.setItem(STORAGE_KEY,JSON.stringify(appData));
+                console.log('✅ جلب البيانات من السحابة');
+                toast('تم جلب البيانات من السحابة ☁️','ok');
+                renderAll();applySettingsUI();refreshEmployeeSelects();applyTheme();
+            }else{
+                await pushToCloud();
+            }
+        }else{
+            await pushToCloud();
+        }
+
+        cloudSyncEnabled=true;
+        appData.lastSync=Date.now();
+        updateCloudStatus('on');updateCloudInfoBox();
+        return true;
+    }catch(e){
+        console.warn('تعذر المزامنة السحابية:',e.message);
+        updateCloudStatus('off');updateCloudInfoBox();
+        return false;
+    }
+}
+
+async function pushToCloud(){
+    if(!supabaseClient)return false;
+    try{
+        const {error}=await supabaseClient
+            .from('app_data')
+            .upsert({id:CLOUD_USER_ID,data:appData,updated_at:new Date().toISOString()});
+        if(error){console.warn('خطأ في الرفع:',error.message);return false;}
+        appData.lastSync=Date.now();
+        return true;
+    }catch(e){console.warn('تعذر الرفع:',e.message);return false;}
+}
+
+async function pushToCloudDebounced(){
+    if(cloudSyncInProgress)return;
+    cloudSyncInProgress=true;
+    updateCloudStatus('syncing');
+    const ok=await pushToCloud();
+    cloudSyncInProgress=false;
+    updateCloudStatus(ok?'on':'off');
+    setTimeout(()=>{if(!cloudSyncInProgress)updateCloudStatus(cloudSyncEnabled?'on':'off');},2000);
+}
+
+async function forceCloudSync(){
+    if(!cloudSyncEnabled){toast('المزامنة غير مفعّلة','warn');return;}
+    updateCloudStatus('syncing');
+    toast('جاري المزامنة...');
+    const ok=await pushToCloud();
+    updateCloudStatus(ok?'on':'off');
+    toast(ok?'✅ تمت المزامنة':'تعذرت المزامنة',ok?'ok':'danger');
+    updateCloudInfoBox();
+}
+
+function updateCloudInfoBox(){
+    const box=$('cloud-info-box');
+    if(!box)return;
+    if(!SUPABASE_URL||!SUPABASE_ANON_KEY){
+        box.innerHTML='⚠️ <b>المزامنة غير مهيأة</b>';
+        return;
+    }
+    if(!cloudSyncEnabled){
+        box.innerHTML='🔴 <b>تعذر الاتصال بالسحابة</b><br>تحقق من الإنترنت.';
+        return;
+    }
+    const lastSync=appData.lastSync?new Date(appData.lastSync).toLocaleString(DATE_LOCALE,{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'—';
+    box.innerHTML=`🟢 <b>المزامنة السحابية مفعّلة</b><br>آخر مزامنة: ${lastSync}<br>معرّف: <code>${CLOUD_USER_ID}</code>`;
+}
+
+/* =========================================================
+   Auth & Persist
+========================================================= */
 function isUnlocked(){return $('login-screen').style.display==='none';}
 function checkPassword(){if($('pass-input').value===appData.password){$('login-screen').style.display='none';$('login-err').style.display='none';resetIdle();if(appData.settings.notifyEnabled)requestNotifyPermission(true);}else{$('login-err').style.display='block';const inp=$('pass-input');inp.classList.add('shake');setTimeout(()=>inp.classList.remove('shake'),350);}}
 function logout(){closeSearch();goToTab('tab-home');$('login-screen').style.display='flex';$('pass-input').value='';$('login-err').style.display='none';clearTimeout(idleTimer);}
@@ -948,27 +1022,34 @@ function resetIdle(){clearTimeout(idleTimer);const mins=parseFloat(appData.setti
 function setAutolock(v){appData.settings.autolock=parseFloat(v)||0;persist();resetIdle();toast(appData.settings.autolock?'القفل بعد '+appData.settings.autolock+' د':'معطّل');}
 function changePassword(){const p=$('new-pass').value;if(!p){toast('أدخل كلمة مرور','warn');return;}appData.password=p;persist();$('new-pass').value='';$('pass-hint').style.display='none';toast('تم التغيير');}
 
-function persist(){localStorage.setItem(STORAGE_KEY,JSON.stringify(appData));updateDashboard();}
+function persist(){
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(appData));
+    updateDashboard();
+    if(cloudSyncEnabled)pushToCloudDebounced();
+}
+
+/* =========================================================
+   Navigation
+========================================================= */
 function switchTab(id,btn){
     document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
     document.querySelectorAll('.bottom-nav-btn').forEach(b=>b.classList.remove('active'));
     const tab=$(id);if(tab)tab.classList.add('active');
     if(btn)btn.classList.add('active');
     window.scrollTo(0,0);
-    // مزامنة sidebar
     document.querySelectorAll('.sidebar-btn[data-tab]').forEach(b=>b.classList.remove('active'));
     const sb=document.querySelector('.sidebar-btn[data-tab="'+id+'"]');
     if(sb)sb.classList.add('active');
 }
 function sidebarNav(id){
     const navBtnMap={'tab-home':'nav-home','tab-work':'nav-hr','tab-personal':'nav-personal','tab-finance':'nav-finance','tab-soul':'nav-soul'};
-    const btn=$(navBtnMap[id]);
-    switchTab(id,btn);
+    switchTab(id,$(navBtnMap[id]));
 }
 function goToTab(id){const b=$(TAB_NAV[id]);if(b)switchTab(id,b);else{document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));$(id).classList.add('active');document.querySelectorAll('.sidebar-btn[data-tab]').forEach(b=>b.classList.remove('active'));}}
 function quickAdd(navId,tabId,inputId){const btn=$(navId);if(btn)switchTab(tabId,btn);else goToTab(tabId);setTimeout(()=>{const el=$(inputId);if(el)el.focus();},150);}
 function showWorkSection(id,btn){document.querySelectorAll('.work-section').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');document.querySelectorAll('#tab-work .tabs-sub-btn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');if(id==='ws-reports')renderReport();}
 
+/* Theme */
 const THEMES=['dark','light','ramadan','brand'];
 function setTheme(t){if(!THEMES.includes(t))t='dark';appData.settings.theme=t;applyTheme();persist();updateThemeIcon();document.querySelectorAll('.theme-swatch').forEach(el=>el.classList.toggle('active',el.dataset.themeVal===t));}
 function applyTheme(){const t=appData.settings.theme||'dark';if(t==='dark')document.body.removeAttribute('data-theme');else document.body.setAttribute('data-theme',t);}
@@ -976,6 +1057,7 @@ function cycleTheme(){const cur=appData.settings.theme||'dark';const idx=THEMES.
 function updateThemeIcon(){const t=appData.settings.theme||'dark';const ic={dark:'🌙',light:'☀️',ramadan:'🌙',brand:'🎨'};$('theme-btn').textContent=ic[t]||'🌗';}
 function togglePrivacy(){document.body.classList.toggle('privacy-blur');$('privacy-btn').textContent=document.body.classList.contains('privacy-blur')?'🙈':'👁️';}
 
+/* Branches */
 function showBranchForm(){$('branch-form').style.display='block';$('add-branch-btn').style.display='none';$('br-edit-id').value='';$('br-name').value='';$('br-cr').value='';$('br-note').value='';}
 function cancelBranchForm(){$('branch-form').style.display='none';$('add-branch-btn').style.display='block';$('br-edit-id').value='';$('br-name').value='';$('br-cr').value='';$('br-note').value='';}
 function editBranch(id){const br=appData.branches.find(b=>b.id===id);if(!br)return;$('branch-form').style.display='block';$('add-branch-btn').style.display='none';$('br-edit-id').value=br.id;$('br-name').value=br.name;$('br-cr').value=br.crNumber;$('br-note').value=br.note;$('branch-form').scrollIntoView({behavior:'smooth',block:'center'});}
@@ -997,6 +1079,7 @@ function renderBranches(){
     }).join('');
 }
 
+/* CRUD */
 function saveItem(cat){
     const cfg=FIELD_MAP[cat];if(!cfg)return;
     const values={};
@@ -1614,6 +1697,7 @@ function renderBackupReminder(){
     const days=last?Math.floor((Date.now()-last)/86400000):null;
     const txt=$('last-backup-txt');
     if(txt)txt.textContent=last?'آخر نسخة: '+new Date(last).toLocaleDateString(DATE_LOCALE,{day:'numeric',month:'long'}):'لم تنشئ نسخة بعد.';
+    if(cloudSyncEnabled){el.style.display='none';return;}
     if(days===null||days>=7){
         el.style.display='block';
         el.innerHTML=`<div class="section-title">💾 نسخة احتياطية</div><p style="font-size:.76rem;color:var(--text-muted);line-height:1.7;">${last?'مرّ '+days+' يوم.':'لم تنشئ نسخة بعد.'}</p><button class="btn btn-ghost btn-full" style="margin-top:8px;" onclick="goToTab('tab-settings')">الإعدادات</button>`;
@@ -1689,7 +1773,8 @@ function renderAll(){
     renderWorship();renderGratitude();
     refreshEmployeeSelects();renderInterviewQuestions();renderChecklist();renderEvalStars();
 }
-function init(){
+
+async function init(){
     applyTheme();updateThemeIcon();
     $('pass-hint').style.display=appData.password==='1234'?'block':'none';
     updateClock();setInterval(updateClock,60000);
@@ -1697,12 +1782,17 @@ function init(){
     $('top-logo').innerHTML=HR_LOGO_SVG;
     const sidebarLogo=document.getElementById('sidebar-logo');
     if(sidebarLogo)sidebarLogo.innerHTML=HR_LOGO_SVG;
+
     try{
         const manifest={name:'منظومة إدارة الموارد البشرية',short_name:'HR منظومة',start_url:'.',display:'standalone',background_color:'#1a2b4a',theme_color:'#1a2b4a',lang:'ar',dir:'rtl',icons:[{src:'data:image/svg+xml;base64,'+btoa('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192"><circle cx="96" cy="96" r="94" fill="#f5f2ea" stroke="#c9a24b" stroke-width="3"/><circle cx="96" cy="96" r="86" fill="none" stroke="#1a2b4a" stroke-width="8"/><text x="96" y="115" text-anchor="middle" font-size="60" fill="#1a2b4a" font-family="Georgia, serif" font-weight="900">HR</text></svg>'),sizes:'192x192',type:'image/svg+xml',purpose:'any maskable'}]};
         const blob=new Blob([JSON.stringify(manifest)],{type:'application/manifest+json'});
         $('app-manifest').href=URL.createObjectURL(blob);
     }catch(e){}
+
+    await initCloudSync();
+
     applySettingsUI();renderAll();setActFilter('week');renderDailyBrief();
+
     ['mousemove','mousedown','keydown','touchstart','scroll','click'].forEach(ev=>{document.addEventListener(ev,()=>{if(isUnlocked())resetIdle();},{passive:true});});
     resetIdle();setInterval(checkAndNotify,5*60000);checkHashImport();
     if(!appData.branches.length)showBranchForm();
