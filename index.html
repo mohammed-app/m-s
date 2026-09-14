@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="HR منظومة">
-<title>منظومة HR — V12.1</title>
+<title>منظومة HR — V13.0</title>
 <link rel="manifest" id="app-manifest">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js" defer></script>
@@ -183,15 +183,131 @@ textarea{resize:vertical}
 .q-chip.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:700}
 .work-section{display:none}
 .work-section.active{display:block}
+
+/* ============ وضع الكمبيوتر (Desktop Mode) ============ */
+.desktop-sidebar { display: none; }
+
+@media (min-width: 1024px) {
+    body {
+        max-width: none;
+        margin: 0;
+        padding: 20px;
+        padding-right: calc(260px + 20px);
+    }
+    body > *:not(#login-screen):not(#search-screen):not(#toast):not(.desktop-sidebar):not(.bottom-nav) {
+        max-width: 1100px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    .bottom-nav { display: none !important; }
+
+    .desktop-sidebar {
+        display: flex;
+        position: fixed;
+        top: 0; right: 0; bottom: 0;
+        width: 260px;
+        background: var(--surface);
+        border-left: 1px solid var(--border);
+        flex-direction: column;
+        padding: 20px 16px;
+        z-index: 800;
+        overflow-y: auto;
+    }
+    .sidebar-logo { width: 72px; height: 72px; margin: 0 auto 10px; }
+    .sidebar-title { text-align: center; font-weight: 800; font-size: 0.95rem; margin-bottom: 4px; }
+    .sidebar-subtitle { text-align: center; font-size: 0.68rem; color: var(--text-muted); margin-bottom: 24px; }
+    .sidebar-nav { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+    .sidebar-btn {
+        background: transparent;
+        border: 1px solid transparent;
+        color: var(--text-muted);
+        padding: 12px 14px;
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-align: right;
+        font-family: inherit;
+        width: 100%;
+    }
+    .sidebar-btn:hover { background: var(--surface-2); color: var(--text); }
+    .sidebar-btn.active { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+    .sidebar-btn .sb-icon { font-size: 1.15rem; width: 24px; text-align: center; }
+    .sidebar-footer { display: flex; flex-direction: column; gap: 6px; padding-top: 12px; border-top: 1px solid var(--border); }
+
+    .stats-grid { grid-template-columns: repeat(4, 1fr); }
+    .stat-item.full-width { grid-column: span 4; }
+
+    .tab-content.active {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+    }
+    .tab-content > .section-card,
+    .tab-content > .summary-card { margin-bottom: 0 !important; }
+    .tab-content > .tabs-sub { grid-column: 1 / -1; }
+    .tab-content > .work-section { grid-column: 1 / -1; }
+
+    .work-section.active {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+    }
+    .work-section > .section-card { margin-bottom: 0 !important; }
+    #ws-reports.active { display: block !important; }
+
+    #tab-home > .section-card:nth-child(3),
+    #tab-home > .section-card:nth-child(4),
+    #tab-home > .section-card:nth-child(5) {
+        grid-column: 1 / -1;
+    }
+
+    .overlay-inner { max-width: 900px; }
+}
 </style>
 </head>
 <body>
+
+<!-- 🖥️ Desktop Sidebar (يظهر فقط على الكمبيوتر) -->
+<aside class="desktop-sidebar">
+    <div class="sidebar-logo" id="sidebar-logo"></div>
+    <div class="sidebar-title">منظومة HR</div>
+    <div class="sidebar-subtitle">إدارة الموارد البشرية</div>
+    <div class="sidebar-nav">
+        <button class="sidebar-btn active" data-tab="tab-home" onclick="sidebarNav('tab-home')">
+            <span class="sb-icon">🏠</span><span>الرئيسية</span>
+        </button>
+        <button class="sidebar-btn" data-tab="tab-work" onclick="sidebarNav('tab-work')">
+            <span class="sb-icon">💼</span><span>العمل</span>
+        </button>
+        <button class="sidebar-btn" data-tab="tab-personal" onclick="sidebarNav('tab-personal')">
+            <span class="sb-icon">👤</span><span>الشخصي</span>
+        </button>
+        <button class="sidebar-btn" data-tab="tab-finance" onclick="sidebarNav('tab-finance')">
+            <span class="sb-icon">💰</span><span>المال</span>
+        </button>
+        <button class="sidebar-btn" data-tab="tab-soul" onclick="sidebarNav('tab-soul')">
+            <span class="sb-icon">🌿</span><span>الروح</span>
+        </button>
+    </div>
+    <div class="sidebar-footer">
+        <button class="sidebar-btn" onclick="goToTab('tab-settings')">
+            <span class="sb-icon">⚙️</span><span>الإعدادات</span>
+        </button>
+        <button class="sidebar-btn" onclick="logout()">
+            <span class="sb-icon">🔒</span><span>تسجيل الخروج</span>
+        </button>
+    </div>
+</aside>
 
 <div id="login-screen">
     <div class="login-box">
         <div class="hr-logo" id="login-logo"></div>
         <h2>منظومة إدارة الموارد البشرية</h2>
-        <p class="sub">الإصدار V12.1</p>
+        <p class="sub">الإصدار V13.0</p>
         <div class="form-group" style="text-align:right;">
             <label>رمز الدخول</label>
             <input type="password" id="pass-input" onkeydown="if(event.key==='Enter') checkPassword()" placeholder="أدخل كلمة المرور">
@@ -833,8 +949,23 @@ function setAutolock(v){appData.settings.autolock=parseFloat(v)||0;persist();res
 function changePassword(){const p=$('new-pass').value;if(!p){toast('أدخل كلمة مرور','warn');return;}appData.password=p;persist();$('new-pass').value='';$('pass-hint').style.display='none';toast('تم التغيير');}
 
 function persist(){localStorage.setItem(STORAGE_KEY,JSON.stringify(appData));updateDashboard();}
-function switchTab(id,btn){document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.bottom-nav-btn').forEach(b=>b.classList.remove('active'));const tab=$(id);if(tab)tab.classList.add('active');if(btn)btn.classList.add('active');window.scrollTo(0,0);}
-function goToTab(id){const b=$(TAB_NAV[id]);if(b)switchTab(id,b);else{document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));$(id).classList.add('active');}}
+function switchTab(id,btn){
+    document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.bottom-nav-btn').forEach(b=>b.classList.remove('active'));
+    const tab=$(id);if(tab)tab.classList.add('active');
+    if(btn)btn.classList.add('active');
+    window.scrollTo(0,0);
+    // مزامنة sidebar
+    document.querySelectorAll('.sidebar-btn[data-tab]').forEach(b=>b.classList.remove('active'));
+    const sb=document.querySelector('.sidebar-btn[data-tab="'+id+'"]');
+    if(sb)sb.classList.add('active');
+}
+function sidebarNav(id){
+    const navBtnMap={'tab-home':'nav-home','tab-work':'nav-hr','tab-personal':'nav-personal','tab-finance':'nav-finance','tab-soul':'nav-soul'};
+    const btn=$(navBtnMap[id]);
+    switchTab(id,btn);
+}
+function goToTab(id){const b=$(TAB_NAV[id]);if(b)switchTab(id,b);else{document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));$(id).classList.add('active');document.querySelectorAll('.sidebar-btn[data-tab]').forEach(b=>b.classList.remove('active'));}}
 function quickAdd(navId,tabId,inputId){const btn=$(navId);if(btn)switchTab(tabId,btn);else goToTab(tabId);setTimeout(()=>{const el=$(inputId);if(el)el.focus();},150);}
 function showWorkSection(id,btn){document.querySelectorAll('.work-section').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');document.querySelectorAll('#tab-work .tabs-sub-btn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');if(id==='ws-reports')renderReport();}
 
@@ -1564,6 +1695,8 @@ function init(){
     updateClock();setInterval(updateClock,60000);
     $('login-logo').innerHTML=HR_LOGO_SVG;
     $('top-logo').innerHTML=HR_LOGO_SVG;
+    const sidebarLogo=document.getElementById('sidebar-logo');
+    if(sidebarLogo)sidebarLogo.innerHTML=HR_LOGO_SVG;
     try{
         const manifest={name:'منظومة إدارة الموارد البشرية',short_name:'HR منظومة',start_url:'.',display:'standalone',background_color:'#1a2b4a',theme_color:'#1a2b4a',lang:'ar',dir:'rtl',icons:[{src:'data:image/svg+xml;base64,'+btoa('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192"><circle cx="96" cy="96" r="94" fill="#f5f2ea" stroke="#c9a24b" stroke-width="3"/><circle cx="96" cy="96" r="86" fill="none" stroke="#1a2b4a" stroke-width="8"/><text x="96" y="115" text-anchor="middle" font-size="60" fill="#1a2b4a" font-family="Georgia, serif" font-weight="900">HR</text></svg>'),sizes:'192x192',type:'image/svg+xml',purpose:'any maskable'}]};
         const blob=new Blob([JSON.stringify(manifest)],{type:'application/manifest+json'});
