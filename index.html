@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="HR منظومة">
-<title>منظومة HR — V14.1 (سحابي)</title>
+<title>منظومة HR — V14.2 (سحابي)</title>
 <link rel="manifest" id="app-manifest">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js" defer></script>
@@ -243,7 +243,7 @@ textarea{resize:vertical}
     <div class="login-box">
         <div class="hr-logo" id="login-logo"></div>
         <h2>منظومة إدارة الموارد البشرية</h2>
-        <p class="sub">الإصدار V14.1 — سحابي</p>
+        <p class="sub">الإصدار V14.2 — سحابي</p>
         <div class="form-group" style="text-align:right;">
             <label>رمز الدخول</label>
             <input type="password" id="pass-input" onkeydown="if(event.key==='Enter') checkPassword()" placeholder="أدخل كلمة المرور">
@@ -700,6 +700,7 @@ textarea{resize:vertical}
         <div class="sync-info-box" id="cloud-info-box">جاري الفحص...</div>
         <div class="btn-row">
             <button class="btn btn-info" onclick="forceCloudSync()">🔄 مزامنة الآن</button>
+            <button class="btn btn-ghost" onclick="testConnection()">🧪 اختبار الاتصال</button>
         </div>
     </div>
 
@@ -767,6 +768,9 @@ textarea{resize:vertical}
 </div>
 
 <script>
+/* =========================================================
+   ☁️ إعدادات Supabase
+========================================================= */
 const SUPABASE_URL = 'https://lcmhqvichzhjxzliupj.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxjbWhxdmxjbGh6aGxqeHpsdXBqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkzNzQ0MTIsImV4cCI6MjEwNDk1MDQxMn0.sGNsMiJb55VQUqkp-LP3gQfrJDs1cIOuukpVaTE-7sI';
 const CLOUD_USER_ID = 'hr_mohammed_main';
@@ -894,7 +898,7 @@ function getUpcomingHolidays(n){const now=new Date();now.setHours(0,0,0,0);const
 function logAct(cat,act,txt){appData.activity.unshift({ts:Date.now(),cat,act,txt:String(txt||'').slice(0,80)});if(appData.activity.length>500)appData.activity.length=500;}
 
 /* =========================================================
-   ☁️ Cloud Sync
+   ☁️ Cloud Sync — مع تشخيص كامل
 ========================================================= */
 function updateCloudStatus(status){
     const dot=$('cloud-dot');const txt=$('cloud-status-text');
@@ -961,16 +965,44 @@ async function initCloudSync(){
     }
 }
 
+/* ⚡ الدالة المعدّلة — تعرض الخطأ كاملاً */
 async function pushToCloud(){
-    if(!supabaseClient)return false;
+    if(!supabaseClient){
+        alert('❌ supabaseClient غير مهيّأ');
+        return false;
+    }
     try{
-        const {error}=await supabaseClient
+        const {error,status,statusText}=await supabaseClient
             .from('app_data')
-            .upsert({id:CLOUD_USER_ID,data:appData,updated_at:new Date().toISOString()});
-        if(error){console.warn('خطأ في الرفع:',error.message);return false;}
-        appData.lastSync=Date.now();
+            .upsert({
+                id: CLOUD_USER_ID,
+                data: appData,
+                updated_at: new Date().toISOString()
+            });
+
+        if(error){
+            console.warn('خطأ في الرفع:', error);
+            const msg = [
+                '❌ خطأ المزامنة',
+                '',
+                'Message: ' + (error.message || '—'),
+                'Code: ' + (error.code || '—'),
+                'Details: ' + (error.details || '—'),
+                'Hint: ' + (error.hint || '—'),
+                'HTTP Status: ' + (status || '—') + ' ' + (statusText || '')
+            ].join('\n');
+            alert(msg);
+            return false;
+        }
+
+        appData.lastSync = Date.now();
+        console.log('✅ تم رفع البيانات بنجاح. Status:', status);
         return true;
-    }catch(e){console.warn('تعذر الرفع:',e.message);return false;}
+    } catch(e){
+        console.warn('استثناء في الرفع:', e);
+        alert('❌ استثناء:\n\n' + (e.message || JSON.stringify(e)));
+        return false;
+    }
 }
 
 async function pushToCloudDebounced(){
@@ -984,13 +1016,63 @@ async function pushToCloudDebounced(){
 }
 
 async function forceCloudSync(){
-    if(!cloudSyncEnabled){toast('المزامنة غير مفعّلة','warn');return;}
+    if(!cloudSyncEnabled){
+        alert('⚠️ المزامنة غير مفعّلة. تأكد من الإنترنت وحاول تحديث الصفحة.');
+        return;
+    }
     updateCloudStatus('syncing');
     toast('جاري المزامنة...');
     const ok=await pushToCloud();
     updateCloudStatus(ok?'on':'off');
     toast(ok?'✅ تمت المزامنة':'تعذرت المزامنة',ok?'ok':'danger');
     updateCloudInfoBox();
+}
+
+/* 🧪 زر اختبار الاتصال */
+async function testConnection(){
+    if(!supabaseClient){
+        alert('❌ supabaseClient غير مهيّأ');
+        return;
+    }
+    const lines = [];
+    lines.push('🔍 اختبار الاتصال');
+    lines.push('URL: ' + SUPABASE_URL);
+    lines.push('Key: ' + SUPABASE_ANON_KEY.substring(0, 30) + '...');
+    lines.push('User: ' + CLOUD_USER_ID);
+    lines.push('');
+    
+    try {
+        // اختبار قراءة
+        lines.push('1️⃣ اختبار القراءة...');
+        const r1 = await supabaseClient.from('app_data').select('id').limit(1);
+        if (r1.error) {
+            lines.push('   ❌ خطأ: ' + r1.error.message);
+            lines.push('   Code: ' + r1.error.code);
+        } else {
+            lines.push('   ✅ نجح. عدد الصفوف: ' + (r1.data?.length || 0));
+        }
+        
+        // اختبار كتابة
+        lines.push('');
+        lines.push('2️⃣ اختبار الكتابة...');
+        const testData = { id: 'debug_' + Date.now(), data: { test: true }, updated_at: new Date().toISOString() };
+        const r2 = await supabaseClient.from('app_data').insert(testData);
+        if (r2.error) {
+            lines.push('   ❌ خطأ: ' + r2.error.message);
+            lines.push('   Code: ' + r2.error.code);
+            lines.push('   Hint: ' + (r2.error.hint || '—'));
+            lines.push('   Details: ' + (r2.error.details || '—'));
+        } else {
+            lines.push('   ✅ نجحت الكتابة');
+            // احذف صف الاختبار
+            await supabaseClient.from('app_data').delete().eq('id', testData.id);
+            lines.push('   🗑️ تم حذف صف الاختبار');
+        }
+    } catch(e) {
+        lines.push('❌ استثناء: ' + (e.message || e));
+    }
+    
+    alert(lines.join('\n'));
 }
 
 function updateCloudInfoBox(){
